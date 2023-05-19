@@ -1,6 +1,7 @@
 package com.example.gestionDeCovoiturage.service;
 
-import com.example.gestionDeCovoiturage.repositories.ReservationRepo;
+import org.springframework.stereotype.Service;
 
-public class ReservationService implements ReservationRepo {
+@Service
+public class ReservationService  {
 }
