@@ -1,8 +1,7 @@
 package com.example.gestionDeCovoiturage.dto.trajet;
 
 import com.example.gestionDeCovoiturage.dto.reservation.ReservationDTO;
-import com.example.gestionDeCovoiturage.models.Reservation;
-import jakarta.persistence.OneToMany;
+
 
 import java.util.Date;
 import java.util.List;
