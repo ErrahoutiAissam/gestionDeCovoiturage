@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mapstruct.EnumMapping;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +18,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Utilisateur utilisateur;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "trajet_id")
     private Trajet trajet;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(20) default 'EN_ATTENTE'")
+    private EtatReservation etat;
 }

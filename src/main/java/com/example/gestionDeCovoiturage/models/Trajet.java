@@ -19,12 +19,23 @@ public class Trajet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String villeDepart;
+
+    @Column(nullable = false)
     private String villeArrive;
+
+    @Column(nullable = false)
     private Date dateDepart;
-    private Integer nbrPlaceDisponible;
+
+    @Column(nullable = false)
+    private Integer nbrPlacesDisponibles;
+
+    @Column(nullable = false)
     private Double prixParPersonne;
-    @OneToMany
+
+    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations;
 
 }

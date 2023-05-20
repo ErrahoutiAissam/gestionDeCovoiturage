@@ -5,7 +5,7 @@ import com.example.gestionDeCovoiturage.dto.auth.RegisterRequest;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.EmailAlreadyUsedException;
 import com.example.gestionDeCovoiturage.models.Role;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
-import com.example.gestionDeCovoiturage.repositories.UtilisateurRepo;
+import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
 import com.example.gestionDeCovoiturage.security.MyPasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AdminService {
 
-    private final UtilisateurRepo utilisateurRepo;
+    private final UtilisateurRepository utilisateurRepo;
     private MyPasswordEncoder passwordEncoder;
 
     public void register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {

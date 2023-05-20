@@ -1,6 +1,6 @@
 package com.example.gestionDeCovoiturage.service;
 
-import com.example.gestionDeCovoiturage.repositories.UtilisateurRepo;
+import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final UtilisateurRepo utilisateurRepo;
+    private final UtilisateurRepository utilisateurRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
