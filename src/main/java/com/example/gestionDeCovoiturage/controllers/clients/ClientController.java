@@ -1,6 +1,8 @@
 package com.example.gestionDeCovoiturage.controllers.clients;
 
+import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundException;
+import com.example.gestionDeCovoiturage.service.ClientService;
 import com.example.gestionDeCovoiturage.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,13 @@ import java.io.IOException;
 public class ClientController {
 
    private final ImageService imageService;
+
+   private final ClientService clientService;
+
+   @GetMapping("/{id}")
+   public ResponseEntity<?> getClientById(@PathVariable("id") Long id) throws NotFoundException {
+      return ResponseEntity.ok(clientService.getUserById(id));
+   }
 
 
    @PostMapping("/{id}/image")

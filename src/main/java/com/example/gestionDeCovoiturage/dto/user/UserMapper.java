@@ -20,6 +20,9 @@ public interface UserMapper {
    Utilisateur registerRequestToUtilisateur(RegisterRequest registerRequest);
 
 
+   @Mapping(target = "imageUrl", source = "image.url")
+   @Mapping(target = "password", ignore = true)
+   UtilisateurDTO toUtilisateurResponseDTO(Utilisateur utilisateur);
 
 
 

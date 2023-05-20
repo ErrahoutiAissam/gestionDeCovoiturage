@@ -7,6 +7,7 @@ import com.example.gestionDeCovoiturage.dto.auth.RegisterRequest;
 import com.example.gestionDeCovoiturage.dto.user.UserMapper;
 import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.EmailAlreadyUsedException;
+import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundException;
 import com.example.gestionDeCovoiturage.models.Role;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
@@ -31,6 +32,10 @@ public class ClientService {
 
    private final AuthenticationManager authenticationManager;
 
+
+   public UtilisateurDTO getUserById(Long id) throws NotFoundException {
+      return userMapper.toUtilisateurResponseDTO(utilisateurRepository.findById(id).orElseThrow(NotFoundException::new));
+   }
 
 
    public UtilisateurDTO register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
