@@ -1,12 +1,18 @@
 package com.example.gestionDeCovoiturage.service;
 
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetDTO;
+import com.example.gestionDeCovoiturage.dto.trajet.TrajetMapper;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.TrajetAlreadyExists;
+import com.example.gestionDeCovoiturage.exceptions.invalid.ReservationRequestException;
+import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
+import com.example.gestionDeCovoiturage.models.Reservation;
 import com.example.gestionDeCovoiturage.models.Trajet;
+import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,30 +20,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TrajetService {
 
-    private final TrajetRepository trajetRepo;
-//
-//    public  TrajetDTO create(TrajetDTO trajetDTO) throws TrajetAlreadyExists {
-//        Optional<Trajet> optionalTrajet= trajetRepo.findById(trajetDTO.getId());
-//        if(optionalTrajet.isPresent()) throw new TrajetAlreadyExists();
-//        trajetRepo.save(trajetDTO);
-//       return trajetDTO  ;
-//    }
-//
-//    public TrajetDTO getById(Long id) throws  {
-//        if(trajetRepo.findById(id).isEmpty())
-//            throw new NotFoundException();
-//        TrajetDTO trajetDTO = new TrajetDTO();
-//        trajetDTO.setId(trajetRepo.findById(id).get().getId());
-//        trajetDTO.setDateDepart(trajetRepo.findById(id).get().getDateDepart());
-//            trajetDTO.setId(trajetRepo.findById(id).get().getId());
-//            trajetDTO.setVilleArrive(trajetRepo.findById(id).get().getVilleArrive());
-//            trajetDTO.setVilleDepart(trajetRepo.findById(id).get().getVilleDepart());
-//            trajetDTO.setNbrPlaceDisponible(trajetRepo.findById(id).get().getNbrPlaceDisponible());
-//            trajetDTO.setPrixParPersonne(trajetRepo.findById(id).get().getPrixParPersonne());
-//          //  trajetDTO.setReservations();
-//
-//        return trajetDTO;
-//    }
+    private final TrajetRepository trajetRepository;
+    private final ReservationRepository reservationRepository;
+    private final TrajetMapper trajetMapper;
+
+    public  TrajetDTO create(TrajetDTO trajetDTO) {
+        Trajet trajet = trajetMapper.createTrajet(trajetDTO);
+        return trajetMapper.trajetToTrajetDTO(trajetRepository.save(trajet));
+    }
+
+    public TrajetDTO getById(Long id) throws NotFoundException {
+        Trajet trajet = trajetRepository.findById(id).orElseThrow(NotFoundException::new);
+        return trajetMapper.trajetToTrajetDTO(trajet);
+    }
+
+    public void addReservationToTrajet(Long trajetId, Long reservationId) throws NotFoundException, ReservationRequestException {
+        Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
+        if(trajet.getReservations().size() == trajet.getNbrPlacesDisponibles())
+            throw new ReservationRequestException();
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(NotFoundException::new);
+        trajet.getReservations().add(reservation);
+    }
+    public void addReservationsToTrajet(Long trajetId, List<Long> reservationIds) throws NotFoundException, ReservationRequestException {
+        for (Long id : reservationIds) {
+            addReservationToTrajet(trajetId, id);
+        }
+    }
+
+
+
+
+
 //    public void deleteTrajet(Long id) throws NotFoundException {
 //        Optional<Trajet> trajetOptional=trajetRepo.findById(id);
 //        if(trajetOptional.isEmpty()){

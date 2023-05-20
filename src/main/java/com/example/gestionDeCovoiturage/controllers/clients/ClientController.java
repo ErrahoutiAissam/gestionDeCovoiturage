@@ -27,19 +27,19 @@ public class ClientController {
 
 
    @PostMapping("/{id}/image")
-   public ResponseEntity<?> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws UserNotFoundException, IOException {
+   public ResponseEntity<?> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws NotFoundException, IOException {
       imageService.uploadImage(id, file);
       return ResponseEntity.ok("uploaded successfully !!");
    }
 
    @PutMapping("/{id}/image")
-   public ResponseEntity<?> updateImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws UserNotFoundException, IOException {
+   public ResponseEntity<?> updateImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws NotFoundException, IOException {
       imageService.uploadImage(id, file);
       return ResponseEntity.ok("updated successfully !!");
    }
 
    @DeleteMapping("/{id}/image")
-   public ResponseEntity<?> deleteImage(@PathVariable Long id) throws UserNotFoundException {
+   public ResponseEntity<?> deleteImage(@PathVariable Long id) throws NotFoundException {
       imageService.deleteImage(id);
       return ResponseEntity.ok("deleted successfully !!");
    }

@@ -15,7 +15,7 @@ public class TrajetDTO {
     private String villeDepart;
     private String villeArrive;
     private Date dateDepart;
-    private Integer nbrPlaceDisponible;
+    private Integer nbrPlacesDisponibles;
     private Double prixParPersonne;
     private List<ReservationDTO> reservations;
 }
