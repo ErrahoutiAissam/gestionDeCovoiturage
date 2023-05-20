@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,8 @@ public class ClientService {
    private final JwtUtils jwtUtils;
 
    private final AuthenticationManager authenticationManager;
+
+
 
    public UtilisateurDTO register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
       if (utilisateurRepository.existsByEmail(registerRequest.getEmail()))
@@ -52,4 +55,8 @@ public class ClientService {
               .refreshToken(refreshToken)
               .build();
    }
+
+
+
+
 }

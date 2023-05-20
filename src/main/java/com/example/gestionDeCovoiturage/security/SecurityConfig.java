@@ -1,5 +1,6 @@
 package com.example.gestionDeCovoiturage.security;
 
+import com.example.gestionDeCovoiturage.models.Role;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,8 @@ public class SecurityConfig {
               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
               .and()
               .authorizeHttpRequests().requestMatchers("/*/auth/**").permitAll()
+              .and()
+              .authorizeHttpRequests().requestMatchers("/*/clients/**").hasAnyAuthority("CLIENT","ADMIN")
               .and()
               .authenticationProvider(authenticationProvider())
               .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

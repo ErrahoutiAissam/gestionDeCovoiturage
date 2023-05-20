@@ -21,3 +21,8 @@ jwt:
   access-expiration-duration-sec: 3600
   refresh-expiration-duration-sec: 2592000
 
+
+
+firebase:
+  serviceAccountKeyPath: ./firebase-adminsdk.json
+  bucket: gestioncovoiturage-bf1d6.appspot.com
