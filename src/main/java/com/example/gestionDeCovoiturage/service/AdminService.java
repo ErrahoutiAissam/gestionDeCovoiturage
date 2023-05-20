@@ -1,31 +1,55 @@
 package com.example.gestionDeCovoiturage.service;
 
 
+import com.example.gestionDeCovoiturage.dto.auth.LoginRequest;
+import com.example.gestionDeCovoiturage.dto.auth.LoginResponse;
 import com.example.gestionDeCovoiturage.dto.auth.RegisterRequest;
+import com.example.gestionDeCovoiturage.dto.user.UserMapper;
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.EmailAlreadyUsedException;
+import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundException;
 import com.example.gestionDeCovoiturage.models.Role;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
 import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
+import com.example.gestionDeCovoiturage.security.JwtUtils;
 import com.example.gestionDeCovoiturage.security.MyPasswordEncoder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AdminService {
 
-    private final UtilisateurRepository utilisateurRepo;
-    private MyPasswordEncoder passwordEncoder;
+    private final UtilisateurRepository utilisateurRepository;
+    private final MyPasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
-    public void register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
-        if(utilisateurRepo.existsByEmail(registerRequest.getEmail()))
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtUtils jwtUtils;
+
+    public UtilisateurDTO register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
+        if(utilisateurRepository.existsByEmail(registerRequest.getEmail()))
             throw new EmailAlreadyUsedException();
-        Utilisateur utilisateur= new Utilisateur();
-        utilisateur.setNom(registerRequest.getNom());
-        utilisateur.setPrenom(registerRequest.getPrenom());
-        utilisateur.setEmail(registerRequest.getEmail());
+        Utilisateur utilisateur = userMapper.registerRequestToUtilisateur(registerRequest);
         utilisateur.setPassword(passwordEncoder.passwordEncoder().encode(registerRequest.getPassword()));
         utilisateur.setRole(Role.ADMIN);
-        utilisateurRepo.save(utilisateur);
+        return userMapper.utilisateurToUtilisateurDTO(utilisateurRepository.save(utilisateur));
+    }
+
+
+    public LoginResponse login(LoginRequest request) throws UserNotFoundException {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail())
+                .orElseThrow(UserNotFoundException::new);
+
+        String accessToken = jwtUtils.generateAccessToken(utilisateur);
+        String refreshToken = jwtUtils.generateRefreshToken(utilisateur);
+        return LoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 }
