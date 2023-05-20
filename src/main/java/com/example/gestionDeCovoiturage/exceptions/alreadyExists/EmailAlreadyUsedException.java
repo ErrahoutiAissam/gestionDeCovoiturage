@@ -1,11 +1,12 @@
 package com.example.gestionDeCovoiturage.exceptions.alreadyExists;
 
-public class EmailAlreadyUsedException extends Exception{
+public class EmailAlreadyUsedException extends AlreadyExistException{
 
-    public EmailAlreadyUsedException() {
+    public EmailAlreadyUsedException(String email) {
+        super("Email " + email + " déjà utilisée !");
     }
 
-    public EmailAlreadyUsedException(String message) {
-        super(message);
+    public EmailAlreadyUsedException() {
+        super("Email déjà utilisée !");
     }
 }

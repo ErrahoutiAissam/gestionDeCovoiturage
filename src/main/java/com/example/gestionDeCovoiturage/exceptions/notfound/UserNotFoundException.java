@@ -1,11 +1,14 @@
 package com.example.gestionDeCovoiturage.exceptions.notfound;
 
-public class UserNotFoundException extends Exception{
+import com.example.gestionDeCovoiturage.models.Utilisateur;
 
+public class UserNotFoundException extends NotFoundException{
    public UserNotFoundException() {
+      this("Utilisateur introuvable");
    }
 
    public UserNotFoundException(String message) {
-      super(message);
+      super(Utilisateur.class, message);
    }
+
 }
