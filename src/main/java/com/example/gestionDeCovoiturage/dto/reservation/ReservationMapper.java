@@ -17,12 +17,14 @@ public interface ReservationMapper {
 
     @Mapping(target = "utilisateur" , ignore = true)
     @Mapping(target = "trajet", ignore = true)
+    @Mapping(target = "etat", constant = "EN_ATTENTE")
     Reservation createReservation(ReservationDTO reservationDTO);
 
     @Mapping(target = "utilisateur" , ignore = true)
     @Mapping(target = "trajet", ignore = true)
     List<ReservationDTO> toResDTOList(List<Reservation> reservationList);
 
+    @Mapping(target = "etat", defaultValue = "EN_ATTENTE")
     void updateReservationFromDTO(ReservationDTO reservationDTO,
                                   @MappingTarget Reservation reservation);
 
