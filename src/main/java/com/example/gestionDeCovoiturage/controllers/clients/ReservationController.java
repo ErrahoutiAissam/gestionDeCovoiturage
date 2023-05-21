@@ -20,12 +20,10 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-
-
     @GetMapping
-    public ResponseEntity<?> getReservations(){
-        return ResponseEntity.ok(reservationService.getAll());
-    }
+public ResponseEntity<?> getReservations(){
+    return ResponseEntity.ok(reservationService.getAll());
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getReservationById(@PathVariable Long id) throws NotFoundException {
@@ -35,18 +33,18 @@ public class ReservationController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createReservation(@RequestBody ReservationDTO reservationDTO) throws AlreadyExistException {
-         return ResponseEntity.ok(reservationService.createReservation(reservationDTO));
+        return ResponseEntity.ok(reservationService.createReservation(reservationDTO));
     }
 
-   @PutMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateReservation(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) throws NotFoundException {
         return ResponseEntity.ok(reservationService.update(reservationDTO, id));
-   }
+    }
 
-   @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReservation(@PathVariable Long id) throws NotFoundException {
-         reservationService.delete(id);
+        reservationService.delete(id);
         return ResponseEntity.ok("Reservation deleted succesfully");
-   }
+    }
 
 }
