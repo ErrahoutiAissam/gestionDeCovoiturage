@@ -26,4 +26,9 @@ public class AdminController {
       return "admin/utilisateurs/all";
    }
 
+   @GetMapping("/create")
+   public String create() {
+      return "admin/utilisateurs/create";
+   }
+
 }

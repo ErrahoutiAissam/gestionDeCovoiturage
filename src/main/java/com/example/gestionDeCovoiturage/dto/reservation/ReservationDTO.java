@@ -18,7 +18,6 @@ public class ReservationDTO {
 
     private TrajetDTO trajet;
 
-
     // why create a dto if all the attributes are the same ?
     private EtatReservation etat;
 

@@ -22,6 +22,7 @@ public interface UserMapper {
 
    @Mapping(target = "imageUrl", source = "image.url")
    @Mapping(target = "password", ignore = true)
+   @Mapping(target = "role", source = "role.authority")
    UtilisateurDTO toUtilisateurResponseDTO(Utilisateur utilisateur);
 
 
