@@ -12,13 +12,15 @@ import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundExceptio
 import com.example.gestionDeCovoiturage.models.Role;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
 import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
-import com.example.gestionDeCovoiturage.security.JwtUtils;
 import com.example.gestionDeCovoiturage.security.MyPasswordEncoder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,15 +30,29 @@ public class ClientService {
    private final MyPasswordEncoder passwordEncoder;
    private final UserMapper userMapper;
 
-   private final JwtUtils jwtUtils;
-
-   private final AuthenticationManager authenticationManager;
-
 
    public UtilisateurDTO getUserById(Long id) throws NotFoundException {
       return userMapper.toUtilisateurResponseDTO(utilisateurRepository.findById(id).orElseThrow(NotFoundException::new));
    }
 
+
+   public List<UtilisateurDTO> findAll(int page, int size) {
+      return utilisateurRepository.findAll(PageRequest.of(page, size))
+              .getContent().stream()
+              .map(userMapper::toUtilisateurResponseDTO)
+              .collect(Collectors.toList());
+   }
+
+   public List<UtilisateurDTO> findByKeyword(int page, int size, String keyword) {
+      return utilisateurRepository.findByNomOrPrenomOrEmail(keyword,keyword,keyword,PageRequest.of(page, size))
+              .stream().map(userMapper::toUtilisateurResponseDTO)
+              .collect(Collectors.toList());
+   }
+
+   public List<UtilisateurDTO> getAll(int page, int size, String keyword) {
+      return keyword.isEmpty() ?
+              findAll(page, size) : findByKeyword(page, size, keyword);
+   }
 
    public UtilisateurDTO register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
       if (utilisateurRepository.existsByEmail(registerRequest.getEmail()))
@@ -48,18 +64,7 @@ public class ClientService {
       return userMapper.utilisateurToUtilisateurDTO(utilisateurRepository.save(utilisateur));
    }
 
-   public LoginResponse login(LoginRequest request) throws UserNotFoundException {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-      Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail())
-              .orElseThrow(UserNotFoundException::new);
 
-      String accessToken = jwtUtils.generateAccessToken(utilisateur);
-      String refreshToken = jwtUtils.generateRefreshToken(utilisateur);
-      return LoginResponse.builder()
-              .accessToken(accessToken)
-              .refreshToken(refreshToken)
-              .build();
-   }
 
 
 

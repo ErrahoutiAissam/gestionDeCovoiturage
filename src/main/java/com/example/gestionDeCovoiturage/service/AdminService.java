@@ -11,7 +11,6 @@ import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundExceptio
 import com.example.gestionDeCovoiturage.models.Role;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
 import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
-import com.example.gestionDeCovoiturage.security.JwtUtils;
 import com.example.gestionDeCovoiturage.security.MyPasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,8 +27,6 @@ public class AdminService {
 
     private final AuthenticationManager authenticationManager;
 
-    private final JwtUtils jwtUtils;
-
     public UtilisateurDTO register(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
         if(utilisateurRepository.existsByEmail(registerRequest.getEmail()))
             throw new EmailAlreadyUsedException();
@@ -40,16 +37,5 @@ public class AdminService {
     }
 
 
-    public LoginResponse login(LoginRequest request) throws UserNotFoundException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail())
-                .orElseThrow(UserNotFoundException::new);
 
-        String accessToken = jwtUtils.generateAccessToken(utilisateur);
-        String refreshToken = jwtUtils.generateRefreshToken(utilisateur);
-        return LoginResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
 }

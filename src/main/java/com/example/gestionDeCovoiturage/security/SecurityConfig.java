@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-   private final Filter jwtAuthFilter;
    private final UserDetailsService userDetailsService;
 
    private final PasswordEncoder passwordEncoder;
@@ -32,17 +31,17 @@ public class SecurityConfig {
    @Bean
    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http
-              .csrf(AbstractHttpConfigurer::disable)
-              .cors().and()
-              .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              .authorizeHttpRequests()
+              .requestMatchers("/auth/**", "/assets/**")
+              .permitAll()
+              .requestMatchers("/client/**").hasAnyAuthority("CLIENT", "ADMIN")
+              .requestMatchers("/admin/**").hasAuthority("ADMIN")
+              .anyRequest()
+              .authenticated()
               .and()
-              .authorizeHttpRequests().requestMatchers("/*/auth/**").permitAll()
-              .and()
-              .authorizeHttpRequests().requestMatchers("/*/clients/**").hasAnyAuthority("CLIENT","ADMIN")
-              .and()
-              .authenticationProvider(authenticationProvider())
-              .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
+              .formLogin()
+              .loginPage("/auth/login")
+              .failureForwardUrl("/auth/login-error");
       return http.build();
    }
 
