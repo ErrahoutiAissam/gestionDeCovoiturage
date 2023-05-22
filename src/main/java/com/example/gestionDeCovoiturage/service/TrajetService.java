@@ -9,11 +9,12 @@ import com.example.gestionDeCovoiturage.models.Trajet;
 import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,11 +41,6 @@ public class TrajetService {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(NotFoundException::new);
         trajet.getReservations().add(reservation);
     }
-    public void addReservationsToTrajet(Long trajetId, List<Long> reservationIds) throws NotFoundException, ReservationRequestException {
-        for (Long id : reservationIds) {
-            addReservationToTrajet(trajetId, id);
-        }
-    }
 
     public void deleteTrajet(Long id) throws NotFoundException {
         Trajet trajet = trajetRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -52,31 +48,40 @@ public class TrajetService {
          }
 
 
-    public TrajetDTO update(TrajetDTO trajetDTO, Long id) throws NotFoundException {
-        Trajet trajetToModify = trajetRepository.findById(id)
+    public TrajetDTO update(TrajetDTO trajetDTO) throws NotFoundException {
+        Trajet trajetToModify = trajetRepository.findById(trajetDTO.getId())
                 .orElseThrow(NotFoundException::new);
         trajetMapper.updateTrajetFromDTO(trajetDTO,trajetToModify);
 
         return trajetMapper.trajetToTrajetDTO(trajetRepository.save(trajetToModify));
     }
 
-        public List<TrajetDTO> getAll() {
-        return  trajetMapper.toTrajetDTOList(trajetRepository.findAll());
-    }
-
-
-    private Page<TrajetDTO> findByVilleDepartContains(int page, int size, String keyword) {
-        Page<Trajet> trajetPage = trajetRepository.findByVilleDepartContaining(keyword, PageRequest.of(page, size));
-        return trajetPage.map(trajetMapper::trajetToTrajetDTO);
-    }
-
-    private Page<TrajetDTO> getAll(int page, int size){
+    public List<TrajetDTO> findAll(int page, int size) {
         return trajetRepository.findAll(PageRequest.of(page, size))
-                .map(trajetMapper::trajetToTrajetDTO);
+                .getContent().stream()
+                .map(trajetMapper::trajetToTrajetDTO)
+                .collect(Collectors.toList());
     }
-    public Page<TrajetDTO> getTrajetsPage(int page, int size, String keyword){
-        return keyword.isEmpty()
-                ? getAll(page, size)
-                : findByVilleDepartContains(page, size, keyword);
+
+    public List<TrajetDTO> findByKeyword(int page, int size, String keyword) {
+        return trajetRepository.findByVilleDepartOrVilleArrive(keyword,keyword,PageRequest.of(page, size))
+                .stream().map(trajetMapper::trajetToTrajetDTO)
+                .collect(Collectors.toList());
     }
+
+    public List<TrajetDTO> getAll(int page, int size, String keyword) {
+        return keyword.isEmpty() ?
+                findAll(page, size) : findByKeyword(page, size, keyword);
+    }
+    public List<TrajetDTO> getProposes(int page, int size, String keyword) {
+        return keyword.isEmpty() ?
+                findAll(page, size) : findByKeyword(page, size, keyword);
+    }
+
+    public List<TrajetDTO> trajetNonRealise(){
+        return trajetMapper.toTrajetDTOList(trajetRepository.findByDateDepartLessThan(new Date()));
+    }
+
+
 }
+

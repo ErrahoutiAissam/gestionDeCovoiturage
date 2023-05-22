@@ -24,4 +24,5 @@ public class ClientController {
       return "admin/utilisateurs/profile";
    }
 
+
 }

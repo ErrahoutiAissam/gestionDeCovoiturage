@@ -1,12 +1,14 @@
 package com.example.gestionDeCovoiturage.controllers.clients;
 
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetDTO;
+import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.service.TrajetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,19 +19,35 @@ public class TrajetController {
 
     private final TrajetService trajetService;
 
-    @GetMapping
-    public String alltrajets(
+    @GetMapping("/historique")
+    public String allTrajetshistory(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestParam(name = "keyword", defaultValue = "") String keyword,
             Model model) {
-        Page<TrajetDTO> trajetsPage = trajetService.getTrajetsPage(page, size, keyword);
-        model.addAttribute("trajetsPage", trajetsPage);
-        model.addAttribute("pages", new int[trajetsPage.getTotalPages()]);
-        model.addAttribute("currentPage" ,page);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("max", trajetsPage.getTotalPages() -1 );
-        model.addAttribute("size" ,size);
+        model.addAttribute("trajetHistorique",trajetService.getAll(page,size,keyword));
+
+        return "client/trajets/historique";
+    }
+    @GetMapping("/proposes")
+    public String AllTrajetsProposes(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "keyword", defaultValue = "") String keyword,
+            Model model) {
+        model.addAttribute("trajetsProposes",trajetService.getProposes(page,size,keyword));
         return "client/trajets/proposes";
     }
+
+    @GetMapping("/create")
+    public String showCreationForm() {
+        return "client/trajets/create";
+    }
+
+    @GetMapping("/{id}")
+    public String trajetSelected(@PathVariable Long id, Model model) throws NotFoundException {
+        model.addAttribute("trajetSelected", trajetService.getById(id));
+        return "client/trajets/trajetInfos";
+    }
+
 }
