@@ -11,17 +11,18 @@ import java.util.List;
 public interface ReservationMapper {
 
 
-    @Mapping(target = "utilisateur" , ignore = true)
-    @Mapping(target = "trajet", ignore = true)
+
+    @Mapping(target = "etat", defaultValue = "EN_ATTENTE")
     ReservationDTO ResTOResDTO(Reservation reservation);
 
     @Mapping(target = "utilisateur" , ignore = true)
     @Mapping(target = "trajet", ignore = true)
-    @Mapping(target = "etat", constant = "EN_ATTENTE")
+    @Mapping(target = "etat", defaultValue = "EN_ATTENTE")
     Reservation createReservation(ReservationDTO reservationDTO);
 
     @Mapping(target = "utilisateur" , ignore = true)
     @Mapping(target = "trajet", ignore = true)
+    @Mapping(target = "etat", defaultValue = "EN_ATTENTE")
     List<ReservationDTO> toResDTOList(List<Reservation> reservationList);
 
     @Mapping(target = "etat", defaultValue = "EN_ATTENTE")

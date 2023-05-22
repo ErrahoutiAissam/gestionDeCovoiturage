@@ -18,23 +18,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class GestionDeCovoiturageApplication implements CommandLineRunner{
 
 	@Autowired
-	private  PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
+
+	@Autowired
+	private TrajetRepository trajetRepository;
+
+
+	@Autowired
+	private ReservationRepository reservationRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(GestionDeCovoiturageApplication.class, args);
 	}
 
+
 	@Override
 	public void run(String... args) throws Exception {
-//		Utilisateur utilisateur = new Utilisateur();
-//		utilisateur.setNom("bouali");
-//		utilisateur.setPrenom("salma");
-//		utilisateur.setEmail("bouali@gmail.com");
-//		utilisateur.setPassword(passwordEncoder.encode("12345678"));
-//		utilisateur.setRole(Role.CLIENT);
+//		Reservation reservation = new Reservation();
 //
-//		utilisateurRepository.save(utilisateur);
+//		reservation.setUtilisateur(utilisateurRepository.getReferenceById(7L));
+//		reservation.setTrajet(trajetRepository.getReferenceById(2L));
+//		reservation.setEtat(EtatReservation.EN_ATTENTE);
+//
+//		reservationRepository.save(reservation);
+
 
 	}
 }
+

@@ -96,16 +96,14 @@ public class ReservationService   {
 
     }
 
-    public Page<ReservationDTO> getReservationsPage(int page , int size){
-            Page<Reservation> reservationPage = reservationRepo.findAll(PageRequest.of(page, size));
-            return reservationPage.map(reservationMapper::ResTOResDTO);
-    }
+//    public Page<ReservationDTO> getReservationsPage(int page , int size){
+//            Page<Reservation> reservationPage = reservationRepo.findAll(PageRequest.of(page, size));
+//            return reservationPage.map(reservationMapper::ResTOResDTO);
+//    }
 
 
 
-    public Page<ReservationDTO> getReservationPage(int page, int size, String keyword) {
-        return  getReservationsPage(page, size);
-    }
+
 
 
 
