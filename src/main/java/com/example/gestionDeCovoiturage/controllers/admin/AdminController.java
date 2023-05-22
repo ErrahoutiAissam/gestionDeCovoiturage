@@ -1,5 +1,6 @@
 package com.example.gestionDeCovoiturage.controllers.admin;
 
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContext;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/clients")
@@ -27,7 +29,9 @@ public class AdminController {
            @RequestParam(name = "size", defaultValue = "10") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword) {
 
-      model.addAttribute("clients",clientService.getAll(page, size, keyword));
+      List<UtilisateurDTO> clients = clientService.getAll(page, size, keyword);
+      model.addAttribute("clients",clients);
+      model.addAttribute("pages", new int[(int) Math.floor(clients.size() / size)]);
       return "admin/utilisateurs/all";
    }
 

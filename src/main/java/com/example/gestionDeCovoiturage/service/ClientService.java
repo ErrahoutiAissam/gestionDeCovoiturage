@@ -44,7 +44,7 @@ public class ClientService {
    }
 
    public List<UtilisateurDTO> findByKeyword(int page, int size, String keyword) {
-      return utilisateurRepository.findByNomOrPrenomOrEmail(keyword,keyword,keyword,PageRequest.of(page, size))
+      return utilisateurRepository.findByNomOrPrenomOrEmailContains(keyword,keyword,keyword,PageRequest.of(page, size))
               .stream().map(userMapper::toUtilisateurResponseDTO)
               .collect(Collectors.toList());
    }
