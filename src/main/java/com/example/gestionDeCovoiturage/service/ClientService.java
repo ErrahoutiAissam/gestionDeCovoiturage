@@ -86,6 +86,11 @@ public class ClientService {
       utilisateurRepository.save(utilisateur);
    }
 
+   public void delete(Long id) throws UserNotFoundException {
+      Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(UserNotFoundException::new);
+      utilisateurRepository.delete(utilisateur);
+   }
+
 
 
 

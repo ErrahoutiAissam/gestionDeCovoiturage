@@ -63,4 +63,11 @@ public class ClientRestController {
    }
 
 
+  @DeleteMapping("/{id}")
+   public ResponseEntity<?> delete(@PathVariable Long id) throws UserNotFoundException {
+      clientService.delete(id);
+      return ResponseEntity.ok().build();
+  }
+
+
 }
