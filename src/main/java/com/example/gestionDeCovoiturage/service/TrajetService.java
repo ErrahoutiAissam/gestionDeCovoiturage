@@ -9,6 +9,8 @@ import com.example.gestionDeCovoiturage.models.Trajet;
 import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,4 +65,18 @@ public class TrajetService {
     }
 
 
+    private Page<TrajetDTO> findByVilleDepartContains(int page, int size, String keyword) {
+        Page<Trajet> trajetPage = trajetRepository.findByVilleDepartContaining(keyword, PageRequest.of(page, size));
+        return trajetPage.map(trajetMapper::trajetToTrajetDTO);
+    }
+
+    private Page<TrajetDTO> getAll(int page, int size){
+        return trajetRepository.findAll(PageRequest.of(page, size))
+                .map(trajetMapper::trajetToTrajetDTO);
+    }
+    public Page<TrajetDTO> getTrajetsPage(int page, int size, String keyword){
+        return keyword.isEmpty()
+                ? getAll(page, size)
+                : findByVilleDepartContains(page, size, keyword);
+    }
 }
