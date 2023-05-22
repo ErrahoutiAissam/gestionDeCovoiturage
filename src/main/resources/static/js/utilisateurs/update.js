@@ -28,3 +28,32 @@ form.addEventListener('submit', (event) => {
             console.error('Error:', error);
         });
 });
+
+
+const fileInput = document.getElementById('upload');
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const id = document.getElementById('id').value;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    const uploadedAvatar = document.getElementById('uploadedAvatar');
+    fetch(`/api/clients/${id}/image`, {
+        method: 'PUT',
+        body: formData
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Image updated successfully!');
+                uploadedAvatar.src = URL.createObjectURL(file);
+            } else {
+                console.error('Error updating image:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Request failed:', error);
+        });
+});
+
+

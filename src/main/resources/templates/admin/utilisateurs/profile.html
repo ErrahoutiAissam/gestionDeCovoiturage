@@ -190,7 +190,7 @@
                 <div class="card-body">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
                     <img
-                            th:src="@{/assets/img/avatars/1.png}"
+                            th:src="${user.imageUrl}"
                             alt="user-avatar"
                             class="d-block rounded"
                             height="100"
@@ -222,7 +222,7 @@
                 <div class="card-body">
                   <form id="form">
                     <div class="row">
-                      <input name="id" type="hidden" th:value="${user.id}">
+                      <input id="id" name="id" type="hidden" th:value="${user.id}">
                       <div class="mb-3 col-md-6">
                         <label for="nom" class="form-label">Nom</label>
                         <input
