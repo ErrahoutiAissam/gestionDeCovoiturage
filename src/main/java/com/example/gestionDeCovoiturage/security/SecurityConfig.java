@@ -24,15 +24,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
    private final UserDetailsService userDetailsService;
-
    private final PasswordEncoder passwordEncoder;
 
 
    @Bean
    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
       http
+              .csrf().disable()
               .authorizeHttpRequests()
-              .requestMatchers("/auth/**", "/assets/**")
+              .requestMatchers("/api/auth/**" ,"/auth/**", "/assets/**")
               .permitAll()
               .requestMatchers("/client/**").hasAnyAuthority("CLIENT", "ADMIN")
               .requestMatchers("/admin/**").hasAuthority("ADMIN")
@@ -41,7 +41,13 @@ public class SecurityConfig {
               .and()
               .formLogin()
               .loginPage("/auth/login")
-              .failureForwardUrl("/auth/login-error");
+              .failureForwardUrl("/auth/login-error")
+              .and()
+              .exceptionHandling(config -> {
+                 config.accessDeniedHandler(((request, response, accessDeniedException) -> {
+                    System.out.println("access denied exception " + accessDeniedException.getMessage());
+                 }));
+              });
       return http.build();
    }
 
