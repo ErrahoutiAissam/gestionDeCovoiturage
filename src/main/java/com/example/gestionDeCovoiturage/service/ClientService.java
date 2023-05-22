@@ -79,6 +79,12 @@ public class ClientService {
    }
 
 
+   public void update(UtilisateurDTO utilisateurDTO) throws UserNotFoundException {
+      Utilisateur utilisateur = utilisateurRepository.findById(utilisateurDTO.getId()).orElseThrow(UserNotFoundException::new);
+      utilisateur.setNom(utilisateurDTO.getNom());
+      utilisateur.setPrenom(utilisateurDTO.getPrenom());
+      utilisateurRepository.save(utilisateur);
+   }
 
 
 

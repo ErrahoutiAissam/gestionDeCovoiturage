@@ -1,6 +1,8 @@
 package com.example.gestionDeCovoiturage.controllers.clients;
 
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
+import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundException;
 import com.example.gestionDeCovoiturage.service.ClientService;
 import com.example.gestionDeCovoiturage.service.ImageService;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +54,13 @@ public class ClientRestController {
       imageService.deleteImage(id);
       return ResponseEntity.ok("deleted successfully !!");
    }
+
+   @PutMapping("/update")
+   public ResponseEntity<?> update(@RequestBody UtilisateurDTO utilisateurDTO) throws UserNotFoundException {
+      System.out.println(utilisateurDTO);
+      clientService.update(utilisateurDTO);
+      return ResponseEntity.ok().build();
+   }
+
 
 }
