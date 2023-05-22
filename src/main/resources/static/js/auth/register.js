@@ -7,7 +7,6 @@ form.addEventListener('submit', function(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    console.log(nom + prenom + email + password)
     const registerRequest = {
         nom: nom,
         prenom: prenom,

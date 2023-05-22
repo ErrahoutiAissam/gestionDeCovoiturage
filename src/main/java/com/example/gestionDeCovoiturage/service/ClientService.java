@@ -65,6 +65,21 @@ public class ClientService {
    }
 
 
+   public UtilisateurDTO create(RegisterRequest registerRequest) throws EmailAlreadyUsedException {
+      if (utilisateurRepository.existsByEmail(registerRequest.getEmail()))
+         throw new EmailAlreadyUsedException();
+      System.out.println(registerRequest);
+      Utilisateur utilisateur = userMapper.registerRequestToUtilisateur(registerRequest);
+      utilisateur.setPassword(passwordEncoder.passwordEncoder().encode(registerRequest.getPassword()));
+      utilisateur.setRole(
+              registerRequest.getRole().equals("client") ?
+                      Role.CLIENT : Role.ADMIN
+      );
+      return userMapper.utilisateurToUtilisateurDTO(utilisateurRepository.save(utilisateur));
+   }
+
+
+
 
 
 

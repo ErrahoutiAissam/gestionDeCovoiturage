@@ -26,4 +26,6 @@ public class RegisterRequest {
     @NotBlank
     @Size(min = 8, max = 50, message = "La taille du mot de passe doit être comprise entre {min} & {max}")
     private String password;
+
+    private String role;
 }
