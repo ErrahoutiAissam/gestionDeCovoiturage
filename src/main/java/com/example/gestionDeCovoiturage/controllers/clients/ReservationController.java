@@ -30,96 +30,88 @@ import java.util.stream.Collectors;
 @RequestMapping("/client/reservations")
 public class ReservationController {
 
-    private final ReservationService reservationService;
+   private final ReservationService reservationService;
 
 
-    private final ClientService clientService;
+   private final ClientService clientService;
 
-    private final UserMapper userMapper;
+   private final UserMapper userMapper;
 
-    private final TrajetMapper trajetMapper;
+   private final TrajetMapper trajetMapper;
 
-    private final ReservationMapper reservationMapper;
+   private final ReservationMapper reservationMapper;
 
-    private final TrajetService trajetService;
-
-
+   private final TrajetService trajetService;
 
 
-    @GetMapping
-    public String showAllReservationsPage(
-            Model model,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestParam(name = "keyword", defaultValue = "") String keyword) throws NotFoundException {
+   @GetMapping
+   public String showAllReservationsPage(
+           Model model,
+           @RequestParam(name = "page", defaultValue = "0") int page,
+           @RequestParam(name = "size", defaultValue = "10") int size,
+           @RequestParam(name = "keyword", defaultValue = "") String keyword) throws NotFoundException {
 
 
-        List<Reservation> reservations = reservationService.getAllReservations();
+      List<Reservation> reservations = reservationService.getAllReservations();
 
-        List<ReservationDTO> reservationDTOs = reservations.stream()
-                .map(reservation -> {
-                    ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
-                    Utilisateur user = null;
-                    Trajet trajet = null;
-                    try {
-                        user = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(reservation.getUtilisateur().getId()));
-                        trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
-                    } catch (NotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+      List<ReservationDTO> reservationDTOs = reservations.stream()
+              .map(reservation -> {
+                 ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
+                 Utilisateur user = null;
+                 Trajet trajet = null;
+                 try {
+                    user = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(reservation.getUtilisateur().getId()));
+                    trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
+                 } catch (NotFoundException e) {
+                    throw new RuntimeException(e);
+                 }
 
-                    reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(user));
-                    reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
-                    return reservationDTO;
-                })
-                .collect(Collectors.toList());
+                 reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(user));
+                 reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
+                 return reservationDTO;
+              })
+              .collect(Collectors.toList());
 
-        System.out.println(reservationDTOs);
-        model.addAttribute("reservations", reservationDTOs);
+      System.out.println(reservationDTOs);
+      model.addAttribute("reservations", reservationDTOs);
 
-        return "client/reservations/all";
-    }
+      return "client/reservations/all";
+   }
 
-    @GetMapping("/create")
-    public String showAddReservationForm(Model model) {
-        List<TrajetDTO> trajets = trajetService.findAll(0,10);
-        model.addAttribute("trajets", trajets);
-        model.addAttribute("user", Principal.getCurrentUser());
-        model.addAttribute("reservation", new ReservationDTO());
+   @GetMapping("/create")
+   public String showAddReservationForm(Model model) {
+      List<TrajetDTO> trajets = trajetService.findAll(0, 10);
+      model.addAttribute("trajets", trajets);
+      model.addAttribute("user", Principal.getCurrentUser());
+      model.addAttribute("reservation", new ReservationDTO());
 
-        return "client/reservations/create";
-    }
+      return "client/reservations/create";
+   }
 
-    @GetMapping("/{id}")
-    public String showReservation(Model model, @PathVariable Long id) throws NotFoundException {
+   @GetMapping("/{id}")
+   public String showReservation(Model model, @PathVariable Long id) throws NotFoundException {
 
+      List<TrajetDTO> trajets = trajetService.findAll(0, 10);
 
-        List<TrajetDTO> trajets = trajetService.findAll(0,10);
-
-        Reservation reservation = reservationService.getById2(id);
-        ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
-
-
-        Utilisateur utilisateur = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(reservation.getUtilisateur().getId()));
-        Trajet trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
-
-        reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(utilisateur));
-        reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
-
-        System.out.println(reservationDTO);
+      Reservation reservation = reservationService.getById2(id);
+      ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
 
 
-        model.addAttribute("trajets", trajets);
-        model.addAttribute("singleReservation",reservationDTO);
+      Utilisateur utilisateur = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(reservation.getUtilisateur().getId()));
+      Trajet trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
 
-        return "client/reservations/reservation";
+      reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(utilisateur));
+      reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
 
-    }
-
-
-
+      System.out.println(reservationDTO);
 
 
+      model.addAttribute("trajets", trajets);
+      model.addAttribute("singleReservation", reservationDTO);
+
+      return "client/reservations/reservation";
+
+   }
 
 
 }

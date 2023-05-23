@@ -14,4 +14,9 @@ public final class Principal {
 
    }
 
+
+   public static boolean isAdmin() {
+      return getCurrentUser().getRole().getAuthority().equals("ADMIN");
+   }
+
 }

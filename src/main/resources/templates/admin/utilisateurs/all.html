@@ -8,7 +8,7 @@
         data-assets-path="../assets/"
         data-template="vertical-menu-template-free"
         xmlns:th="http://www.thymeleaf.org"
->
+        xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
   <meta
@@ -118,54 +118,118 @@
                   </g>
                 </svg>
               </span>
-          <span class="app-brand-text demo menu-text fw-bolder ms-2">Covoiturage</span>
+          <span class="app-brand-text demo menu-text fw-bolder ms-2">Covoiturage
+            <br>
+            <span class="app-brand-text demo menu-text" sec:authorize="hasAuthority('ADMIN')">administration</span>
+          </span>
         </a>
-
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
           <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
       </div>
 
-      <div class="menu-inner-shadow"></div>
+      <div class="menu-inner-shadow">
+      </div>
 
-      <ul class="menu-inner py-1">
+      <ul  class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
+        <li class="menu-item active">
+          <a th:href="@{/index}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Tableau de bord </div>
           </a>
         </li>
-        <li class="menu-item">
+
+        <!--Les trajets pour Admin-->
+        <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon bx bx-car'></i>
             <div data-i18n="Account Settings">Trajets</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a th:href="@{/client/trajets/proposes}" class="menu-link">
-                <div data-i18n="Account">Trajets proposés</div>
+              <a th:href="@{/admin/trajets}" class="menu-link">
+                <div data-i18n="Account">Tous</div>
               </a>
             </li>
             <li class="menu-item">
-              <a th:href="@{/client/trajets/historique}" class="menu-link">
-                <div data-i18n="Notifications">Historique</div>
+              <a th:href="@{/admin/trajets-proposes}" class="menu-link">
+                <div data-i18n="Notifications">Trajets proposés</div>
               </a>
             </li>
           </ul>
         </li>
-        <li class="menu-item">
-          <a href="pages/reservations/reservations.html" class="menu-link">
-            <i class='menu-icon bx bx-table'></i>
-            <div data-i18n="Boxicons">Reservations</div>
+
+        <!--Les trajets pour Client-->
+        <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon bx bx-car'></i>
+            <div data-i18n="Account Settings">Trajets</div>
           </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a th:href="@{/client/trajets}" class="menu-link">
+                <div data-i18n="Notifications">Tous</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a th:href="@{/client/trajets-proposes}" class="menu-link">
+                <div data-i18n="Account">Trajets proposés</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a th:href="@{/client/trajets-reserves}" class="menu-link">
+                <div data-i18n="Account">Trajets réservés</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a th:href="@{/client/trajets-historique}" class="menu-link">
+                <div data-i18n="Account">Historique</div>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li class="menu-item active">
+        <!--/Les trajets pour client-->
+
+
+        <!--Les reservations pour Admin-->
+        <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon bx bx-table'></i>
+            <div data-i18n="Account Settings">Réservations</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a th:href="@{/admin/reservations}" class="menu-link">
+                <div data-i18n="Notifications">Tous</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!--Les reservations pour client-->
+        <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon bx bx-table'></i>
+            <div data-i18n="Account Settings">Réservations</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a th:href="@{/client/reservations}" class="menu-link">
+                <div data-i18n="Notifications">Tous</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
           <a th:href="@{/admin/clients}" class="menu-link">
             <i class='menu-icon bx bx-user'></i>
             <div data-i18n="Boxicons">Utilisateurs</div>
           </a>
         </li>
+
       </ul>
     </aside>
     <!-- / Menu -->
