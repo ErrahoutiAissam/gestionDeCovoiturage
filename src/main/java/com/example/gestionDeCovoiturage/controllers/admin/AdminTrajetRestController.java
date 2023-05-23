@@ -42,6 +42,7 @@ public class AdminTrajetRestController {
    public ResponseEntity<?> addReservationsToTrajet(
            @PathVariable Long trajetId,
            @RequestBody List<Long> ids) throws NotFoundException {
+      System.out.println(trajetId + " " + ids);
       trajetService.addReservationsToTrajet(trajetId, ids);
       return ResponseEntity.ok().build();
    }

@@ -302,7 +302,7 @@
                                 aria-label="Close"
                         ></button>
                       </div>
-                      <form onsubmit="saveData()">
+                      <form id="searchForm">
                         <div class="modal-body">
                           <input class="form-control" type="search" id="searchInput" placeholder="chercher un utilisateur"/>
                           <div style="height: 200px; width: auto; overflow-y: scroll; text-align: left">
@@ -341,9 +341,9 @@
                 </thead>
                 <tbody class="table-border-bottom-0">
                 <tr th:each="reservation : ${trajet.reservations}">
+                  <td><img th:src="${reservation.utilisateur.imageUrl}" height="30" alt="-"/></td>
                   <td th:text="${reservation.utilisateur.nom}"></td>
                   <td th:text="${reservation.utilisateur.prenom}"></td>
-                  <td><img th:src="${reservation.utilisateur.imageUrl}" height="30" alt="-"/></td>
                   <td th:text="${reservation.etat}"></td>
                   <td>
                     <form>
