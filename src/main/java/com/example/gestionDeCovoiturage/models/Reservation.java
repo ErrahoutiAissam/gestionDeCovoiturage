@@ -27,4 +27,14 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(20) default 'EN_ATTENTE'")
     private EtatReservation etat;
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", utilisateur=" + utilisateur +
+                ", trajet=" + trajet +
+                ", etat=" + etat +
+                '}';
+    }
 }

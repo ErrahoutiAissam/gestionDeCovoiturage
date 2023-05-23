@@ -248,14 +248,24 @@
           <div class="card">
             <h5 class="card-header">Création d'une reservation</h5>
             <div class="card-body">
-              <form id="addReservationForm"  >
+              <form  id="addReservationForm"  >
+
                 <div class="mb-3 row">
-                  <label for="User" class="col-md-2 col-form-label">User Name*</label>
+                  <label class="col-md-2 col-form-label">User*</label>
                   <div class="col-md-10">
-                    <input  class="form-control" name="User" type="text" id="User" disabled  th:value="${user.getNom() + ' ' + user.getPrenom() }"/>
-                    <input type="hidden" name="userId" id="userId" th:value="${user.getId()}"/>
+                    <div class="col-md-10 mt-2" style="height: 150px; width: auto; overflow-y: scroll;">
+                      <div class="form-group">
+                        <select id="user" name="user" class="form-control">
+                          <option value="">Select a User</option>
+                          <th:block th:each="user : ${users}">
+                            <option th:value="${user.getId()}" th:text="${user.getNom() + ' ' + user.getPrenom() + ' ---  Email : ' + user.getEmail() }"></option>
+                          </th:block>
+                        </select>
+                      </div>
+                      </div>
                   </div>
                 </div>
+
                 <div class="mb-3 row">
                   <label class="col-md-2 col-form-label">Trajet*</label>
                   <div class="col-md-10">
@@ -284,7 +294,7 @@
                             name="etat"
                             id="Confirmer"
                             value="Confirme"
-                            disabled
+
                     />
                     <label class="form-check-label" for="Confirmer">Confirmer</label>
                   </div>
@@ -295,8 +305,7 @@
                             name="etat"
                             id="En attente"
                             value="En_attente"
-                            checked
-                            disabled
+
                     />
                     <label class="form-check-label" for="En attente">En attente</label>
                   </div>
@@ -336,7 +345,7 @@
 
 
 <script th:src="@{/js/reservation/create.js}"></script>
-<script th:src="@{/js/utils.js}"></script>
+<script th:src="@{/js/reservation/utils.js}"></script>
 
 <!--<script th:src="@{/js/utilisateurs/create.js}"></script>-->
 <!-- Core JS -->

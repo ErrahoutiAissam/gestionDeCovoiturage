@@ -240,9 +240,9 @@
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
+
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Reservations /</span> Créer</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Reservations /</span> Modifier</h4>
 
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
@@ -252,7 +252,7 @@
                                 <div class="mb-3 row">
                                     <label for="User" class="col-md-2 col-form-label">User Name*</label>
                                     <div class="col-md-10">
-                                        <input  class="form-control" name="User" type="text" id="User"   th:value="${singleReservation.utilisateur.getNom() + ' ' + singleReservation.utilisateur.prenom}"/>
+                                        <input  class="form-control" name="User" type="text" id="User"  disabled  th:value="${singleReservation.utilisateur.getNom() + ' ' + singleReservation.utilisateur.prenom}"/>
                                         <input type="hidden" name="Id" id="id"  th:value="${singleReservation.getId()}"/>
                                         <input type="hidden" name="idUser" id="idUser" disabled th:value="${singleReservation.getUtilisateur().getId()}"/>
                                     </div>
@@ -265,7 +265,7 @@
                                                 <select id="trajet" name="id" class="form-control">
                                                     <option th:value="${singleReservation.trajet.getVilleDepart() + ' ----> ' + singleReservation.trajet.getVilleArrive()}">Select a trajet</option>
                                                     <th:block th:each="trajet : ${trajets}">
-                                                        <option th:value="${trajet.id}" th:text="${trajet.getVilleDepart() + ' ----> ' + trajet.getVilleArrive()}"></option>
+                                                        <option th:value="${trajet.id}" th:text="${trajet.getVilleDepart() + ' ----> ' + trajet.getVilleArrive()}" th:selected="${trajet.getId() == singleReservation.getTrajet().getId()}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -285,6 +285,8 @@
                                                 name="etat"
                                                 id="Confirmer"
                                                 value="Confirme"
+                                                th:checked="${singleReservation.getEtat().toString() == 'CONFIRME'}"
+                                                disabled
 
                                         />
                                         <label class="form-check-label" for="Confirmer">Confirmer</label>
@@ -296,7 +298,9 @@
                                                 name="etat"
                                                 id="En attente"
                                                 value="En_attente"
-                                                checked
+                                                th:checked="${singleReservation.getEtat().toString() == 'EN_ATTENTE'}"
+                                                disabled
+
                                         />
                                         <label class="form-check-label" for="En attente">En attente</label>
                                     </div>
@@ -336,7 +340,7 @@
 
 
 <script th:src="@{/js/reservation/update.js}"></script>
-<script th:src="@{/js/utils.js}"></script>
+<script th:src="@{/js/resercation/utils.js}"></script>
 
 
 <!-- Core JS -->

@@ -17,4 +17,5 @@ public class ReservationIdDTO {
 
     private EtatReservation etat;
 
+   private Long idUser;
 }

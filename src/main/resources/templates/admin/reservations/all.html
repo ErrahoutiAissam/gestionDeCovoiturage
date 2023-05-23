@@ -236,7 +236,7 @@
 
         <!-- Layout container -->
         <div class="layout-page">
-<!--            &lt;!&ndash; Navbar &ndash;&gt;-->
+            <!-- Navbar -->
 
 <!--            <nav-->
 <!--                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"-->
@@ -264,7 +264,7 @@
 <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
 <!--&lt;!&ndash;                    &lt;!&ndash; /Search &ndash;&gt;&ndash;&gt;-->
 
-<!--                    <ul class="navbar-nav flex-row align-items-center ms-auto">-->
+<!--&lt;!&ndash;                    <ul class="navbar-nav flex-row align-items-center ms-auto">&ndash;&gt;-->
 
 
 
@@ -312,7 +312,7 @@
 <!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
 <!--&lt;!&ndash;                        </li>&ndash;&gt;-->
 <!--&lt;!&ndash;                        &lt;!&ndash;/ User &ndash;&gt;&ndash;&gt;-->
-<!--                    </ul>-->
+<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
 <!--                </div>-->
 <!--            </nav>-->
 
@@ -320,11 +320,11 @@
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
-
+                <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="fw-bold py-3 mb-0"><span class="text-muted fw-light">Reservations /</span> ALL </h4>
-                        <a th:href="@{/client/reservations/create}" class="btn btn-primary">Ajouter</a>
+                        <a th:href="@{/admin/reservations/create}" class="btn btn-primary">Ajouter</a>
                     </div>
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
@@ -343,7 +343,7 @@
                                 <tbody class="table-border-bottom-0" id="reservationTableBody">
                                 <tr th:each="reservation : ${reservations}">
                                     <td>
-                                        <i class="fab fa-bootstrap fa-lg text-primary"></i> <strong th:text="${reservation.utilisateur.nom}"></strong>
+                                        <i class="fab fa-bootstrap fa-lg text-primary"></i> <strong th:text="${reservation.utilisateur.nom + ' ' + reservation.utilisateur.prenom}"></strong>
                                     </td>
                                     <td>
                                         <i class="fab fa-bootstrap fa-lg text-primary"></i>
@@ -365,7 +365,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/client/reservations/{id}(id=${reservation.getId()})}"><i class="bx bx-edit-alt me-2"></i> Edit</a
+                                                <a class="dropdown-item" th:href="@{/admin/reservations/{id}(id=${reservation.getId()})}"><i class="bx bx-edit-alt me-2"></i> Edit</a
                                                 >
                                                 <a class="dropdown-item"  th:data-reservation-id="${reservation.id}" onclick="deleteReservation(this)" >
                                                 <i class="bx bx-trash me-2"></i> Delete</a
@@ -403,8 +403,9 @@
 </div>
 <!-- / Layout wrapper -->
 
-<script th:src="@{/js/reservation/search.js}"></script>
-<script th:src="@{/js/reservation/delete.js}"></script>
+<script th:src="@{/js/admin/reservation/search.js}"></script>
+<script th:src="@{/js/admin/reservation/delete.js}"></script>
+<script th:src="@{/js/admin/reservation/utils.js}"></script>
 
 
 

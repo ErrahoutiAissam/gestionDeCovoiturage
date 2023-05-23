@@ -9,8 +9,8 @@ form.addEventListener('submit', (e) => {
     const stateSelected = document.querySelector('input[name="etat"]:checked').value.toUpperCase()
     const reservationId = document.getElementById("id").value;
 
-    // const userSelected = document.getElementById("user");
-    // const userId = userSelected.value;
+    const userSelected = document.getElementById("user");
+    const userId = userSelected.value;
 
     // const userId = document.getElementById("idUser");
 
@@ -18,6 +18,7 @@ form.addEventListener('submit', (e) => {
     const registerRequest = {
         idTrajet: trajetId,
         etat: stateSelected,
+        idUser: userId
 
     };
  
@@ -25,7 +26,7 @@ form.addEventListener('submit', (e) => {
 
     console.log(reservationId)
 
-    fetch('/api/client/reservation/' + reservationId, {
+    fetch('/api/admin/reservation/' + reservationId, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

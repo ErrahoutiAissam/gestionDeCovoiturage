@@ -6,8 +6,17 @@ form.addEventListener('submit', (e) => {
     const trajetSelect = document.getElementById("trajet");
     const trajetId = trajetSelect.value;
 
+    // const userSelected = document.getElementById("user");
+    // const userId = userSelected.value;
+
+
+    const stateSelected = document.querySelector('input[name="etat"]:checked').value.toUpperCase()
+
     const registerRequest = {
         idTrajet: trajetId,
+        etat: stateSelected
+        // idUser: userId
+
     };
     console.log(trajetId)
     console.log(JSON.stringify(registerRequest))
@@ -25,6 +34,7 @@ form.addEventListener('submit', (e) => {
                 form.reset();
             } else {
                 console.error('Reservation adding failed.');
+                console.log(response.headers)
             }
         })
         .catch(error => {

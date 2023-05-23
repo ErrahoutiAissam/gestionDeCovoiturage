@@ -1,4 +1,4 @@
-const form = document.getElementById('updateReservationForm');
+const form = document.getElementById('addReservationForm');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -6,27 +6,23 @@ form.addEventListener('submit', (e) => {
     const trajetSelect = document.getElementById("trajet");
     const trajetId = trajetSelect.value;
 
+    const userSelected = document.getElementById("user");
+    const userId = userSelected.value;
+
+
     const stateSelected = document.querySelector('input[name="etat"]:checked').value.toUpperCase()
-    const reservationId = document.getElementById("id").value;
-
-    // const userSelected = document.getElementById("user");
-    // const userId = userSelected.value;
-
-    // const userId = document.getElementById("idUser");
-
 
     const registerRequest = {
         idTrajet: trajetId,
         etat: stateSelected,
+        idUser: userId
 
     };
- 
+    console.log(trajetId)
     console.log(JSON.stringify(registerRequest))
 
-    console.log(reservationId)
-
-    fetch('/api/client/reservation/' + reservationId, {
-        method: 'PUT',
+    fetch('/api/admin/reservation/create', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -34,13 +30,14 @@ form.addEventListener('submit', (e) => {
     })
         .then(response => {
             if (response.ok) {
-                console.log('Reservation updated successfully!');
+                console.log('Reservation added successfully!');
+                form.reset();
             } else {
-                console.error('Reservation update failed.');
+                console.error('Reservation adding failed.');
+                console.log(response.headers)
             }
         })
         .catch(error => {
             console.error('Error:', error);
         });
 });
-

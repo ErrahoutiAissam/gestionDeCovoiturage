@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 public class ReservationController {
 
    private final ReservationService reservationService;
+
+
 
 
    private final ClientService clientService;
@@ -52,41 +55,43 @@ public class ReservationController {
            @RequestParam(name = "keyword", defaultValue = "") String keyword) throws NotFoundException {
 
 
-      List<Reservation> reservations = reservationService.getAllReservations();
+		List<Reservation> reservations = reservationService.getReservationOfCurrenUser(Objects.requireNonNull(Principal.getCurrentUser()).getId());
+		List<ReservationDTO> reservationDTOs = reservations.stream()
+				.map(reservation -> {
+					ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
+					Utilisateur user = null;
+					Trajet trajet = null;
+					try {
+						user = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(Principal.getCurrentUser().getId()));
+						trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
+					} catch (NotFoundException e) {
+						throw new RuntimeException(e);
+					}
 
-      List<ReservationDTO> reservationDTOs = reservations.stream()
-              .map(reservation -> {
-                 ReservationDTO reservationDTO = reservationMapper.ResTOResDTO(reservation);
-                 Utilisateur user = null;
-                 Trajet trajet = null;
-                 try {
-                    user = userMapper.utilisateurDTOToUtilisateur(clientService.getUserById(reservation.getUtilisateur().getId()));
-                    trajet = trajetMapper.createTrajet(trajetService.getById(reservation.getTrajet().getId()));
-                 } catch (NotFoundException e) {
-                    throw new RuntimeException(e);
-                 }
+					reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(user));
+					reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
+					return reservationDTO;
+				})
 
-                 reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(user));
-                 reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajet));
-                 return reservationDTO;
-              })
-              .collect(Collectors.toList());
+				.collect(Collectors.toList());
 
-      System.out.println(reservationDTOs);
+
       model.addAttribute("reservations", reservationDTOs);
 
       return "client/reservations/all";
    }
 
    @GetMapping("/create")
-   public String showAddReservationForm(Model model) {
-      List<TrajetDTO> trajets = trajetService.findAll(0, 10);
-      model.addAttribute("trajets", trajets);
-      model.addAttribute("user", Principal.getCurrentUser());
-      model.addAttribute("reservation", new ReservationDTO());
+    public String showAddReservationForm(Model model) {
+        List<TrajetDTO> trajets = trajetService.findAll(0, 10);
+        model.addAttribute("trajets", trajets);
+        model.addAttribute("user", Principal.getCurrentUser());
+        model.addAttribute("reservation", new ReservationDTO());
 
-      return "client/reservations/create";
-   }
+        return "client/reservations/create";
+    }
+
+
 
    @GetMapping("/{id}")
    public String showReservation(Model model, @PathVariable Long id) throws NotFoundException {
@@ -112,6 +117,8 @@ public class ReservationController {
       return "client/reservations/reservation";
 
    }
+
+
 
 
 }

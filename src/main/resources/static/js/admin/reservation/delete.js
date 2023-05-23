@@ -1,6 +1,6 @@
 function deleteReservation(element) {
 
-    const reservationId = $(element).data("reservation-id");
+    var reservationId = $(element).data("reservation-id");
     console.log(reservationId)
 
     if (confirm('Est-vous sûr de supprimer cette reservation')) {
