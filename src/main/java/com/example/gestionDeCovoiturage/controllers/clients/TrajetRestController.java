@@ -35,7 +35,9 @@ public class TrajetRestController {
 
    @PostMapping("/create")
    public ResponseEntity<?> createTrajet(@RequestBody TrajetDTO trajetDTO) throws AlreadyExistException {
+      System.out.println("*****************creation de trajet******************");
       System.out.println(trajetDTO);
+      System.out.println("*****************creation de trajet******************");
       return ResponseEntity.ok(trajetService.create(trajetDTO));
    }
 
