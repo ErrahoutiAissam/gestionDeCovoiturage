@@ -18,4 +18,5 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     List<Reservation> findByEtat(EtatReservation etatReservation, Pageable pageable);
 
     Page<Reservation> findAllByOrderByEtat(PageRequest pageRequest);
+
 }

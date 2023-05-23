@@ -1,7 +1,9 @@
 package com.example.gestionDeCovoiturage.service;
 
+import com.example.gestionDeCovoiturage.dto.reservation.ReservationMapper;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetDTO;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetMapper;
+import com.example.gestionDeCovoiturage.dto.user.UserMapper;
 import com.example.gestionDeCovoiturage.exceptions.invalid.ReservationRequestException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.models.Reservation;
@@ -27,6 +29,10 @@ public class TrajetService {
     private final ReservationRepository reservationRepository;
     private final TrajetMapper trajetMapper;
 
+    private final UserMapper userMapper;
+
+    private final ReservationMapper reservationMapper;
+
     private final UtilisateurRepository utilisateurRepository;
 
     public  TrajetDTO create(TrajetDTO trajetDTO) {
@@ -38,7 +44,10 @@ public class TrajetService {
 
     public TrajetDTO getById(Long id) throws NotFoundException {
         Trajet trajet = trajetRepository.findById(id).orElseThrow(NotFoundException::new);
-        return trajetMapper.trajetToTrajetDTO(trajet);
+        TrajetDTO trajetDTO = trajetMapper.trajetToTrajetDTO(trajet);
+        trajetDTO.setProposeur(userMapper.toUtilisateurResponseDTO(trajet.getProposeur()));
+        trajetDTO.setReservations(trajet.getReservations().stream().map(reservationMapper::ResTOResDTO).collect(Collectors.toList()));
+        return trajetDTO;
     }
 
     public void addReservationToTrajet(Long trajetId, Long reservationId) throws NotFoundException, ReservationRequestException {

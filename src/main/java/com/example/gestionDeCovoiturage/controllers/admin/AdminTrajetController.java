@@ -1,5 +1,6 @@
 package com.example.gestionDeCovoiturage.controllers.admin;
 
+import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.service.TrajetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,8 @@ public class AdminTrajetController {
 
 
    @GetMapping("/trajets/{id}")
-   public String showTrajetPage(@PathVariable Long id) {
+   public String showTrajetPage(@PathVariable Long id, Model model) throws NotFoundException {
+      model.addAttribute("trajet", trajetService.getById(id));
       return "admin/trajets/trajet";
    }
 
