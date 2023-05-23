@@ -50,7 +50,7 @@ public class TrajetController {
            @RequestParam(name = "size", defaultValue = "10") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword,
            Model model) {
-//        model.addAttribute("trajetsProposes",trajetService.getProposes(page,size,keyword));
+        model.addAttribute("trajetsProposes",trajetService.getProposes(page,size,keyword));
       return "client/trajets/proposes";
    }
 
@@ -65,7 +65,7 @@ public class TrajetController {
    }
 
    @GetMapping("/trajets-create")
-   public String showCreationForm(Model model) {
+   public String showCreationForm() {
       return "client/trajets/create";
    }
 
