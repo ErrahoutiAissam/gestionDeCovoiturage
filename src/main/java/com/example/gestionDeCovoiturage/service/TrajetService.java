@@ -122,7 +122,8 @@ public class TrajetService {
                 findHistorique(page, size) : findByKeyword(page, size, keyword);
     }
     public List<TrajetDTO> findHistorique( int page, int size) {
-        Utilisateur utilisateur= Objects.requireNonNull(Principal.getCurrentUser());
+        Long utilisateurID= Principal.getCurrentUser().getId();
+        Utilisateur utilisateur= utilisateurRepository.findById(utilisateurID).get();
         Page<Trajet> trajetPage = trajetRepository.findAllByProposeurAndDateDepartLessThan( utilisateur,new Date(),PageRequest.of(page, size));
         return trajetPage.getContent().stream()
                 .map(trajetMapper::trajetToTrajetDTO)

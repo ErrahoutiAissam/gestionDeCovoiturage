@@ -36,7 +36,7 @@ public class AdminTrajetController {
            @RequestParam(name = "size", defaultValue = "10") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword
    ) {
-//      model.addAttribute(trajetService.getAll(page, size, keyword));
+      model.addAttribute("trajets",trajetService.getProposes(page, size, keyword));
       return "admin/trajets/proposes";
    }
 

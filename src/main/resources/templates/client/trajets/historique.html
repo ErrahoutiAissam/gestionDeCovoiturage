@@ -161,7 +161,7 @@
                 </li>
 
                 <!--Les trajets pour Client-->
-                <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
+                <li sec:authorize="hasAuthority('CLIENT')" class="menu-item active">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class='menu-icon bx bx-car'></i>
                         <div data-i18n="Account Settings">Trajets</div>
@@ -188,7 +188,7 @@
 
 
                 <!--Les reservations pour Admin-->
-                <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
+                <li sec:authorize="hasAuthority('ADMIN')" class="menu-item active">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class='menu-icon bx bx-table'></i>
                         <div data-i18n="Account Settings">Réservations</div>
