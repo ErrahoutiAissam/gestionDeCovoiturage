@@ -300,10 +300,12 @@
                                 class="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
+                                onclick="reload()"
                         ></button>
                       </div>
                       <form id="searchForm">
                         <div class="modal-body">
+                          <input type="hidden" id="id_trajet" th:value="${trajet.id}">
                           <input class="form-control" type="search" id="searchInput" placeholder="chercher un utilisateur"/>
                           <div style="height: 200px; width: auto; overflow-y: scroll; text-align: left">
                             <div style="display: block;" th:each="user : ${users}" class="reservation">
@@ -319,7 +321,7 @@
                           </div>
                         </div>
                         <div class="modal-footer">
-                          <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="reload()">
                             Fermer
                           </button>
                           <button type="submit" class="btn btn-primary">Enregistrer</button>

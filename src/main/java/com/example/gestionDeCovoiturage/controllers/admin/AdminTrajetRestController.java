@@ -41,9 +41,9 @@ public class AdminTrajetRestController {
    @PostMapping("/{trajetId}/add-reservation")
    public ResponseEntity<?> addReservationsToTrajet(
            @PathVariable Long trajetId,
-           @RequestBody List<Long> ids) throws NotFoundException {
-      System.out.println(trajetId + " " + ids);
-      trajetService.addReservationsToTrajet(trajetId, ids);
+           @RequestBody List<Long> selectedIds) throws NotFoundException {
+      System.out.println(trajetId + " " + selectedIds);
+      trajetService.addReservationsToTrajet(trajetId, selectedIds);
       return ResponseEntity.ok().build();
    }
 

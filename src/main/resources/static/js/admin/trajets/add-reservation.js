@@ -1,6 +1,7 @@
 const searchForm = document.getElementById('searchForm');
 
 searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
     const selectedIds = [];
     const checkboxes = document.getElementsByName("selectedContacts");
 
@@ -10,7 +11,7 @@ searchForm.addEventListener('submit', (event) => {
         }
     }
 
-    const id = document.getElementById('id');
+    const id = document.getElementById('id_trajet');
 
     fetch("/api/admin/trajets/"+id.value+"/add-reservation", {
         method: "POST",
@@ -22,6 +23,7 @@ searchForm.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log("OK");
+
             } else {
                 console.error("Error:", response.status);
             }
@@ -30,3 +32,8 @@ searchForm.addEventListener('submit', (event) => {
             console.error("Error:", error);
         });
 })
+
+function reload() {
+    const id = document.getElementById('id_trajet');
+    window.location.href = '/admin/trajets/'+id.value;
+}
