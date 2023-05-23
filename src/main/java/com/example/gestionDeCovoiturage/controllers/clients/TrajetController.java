@@ -58,4 +58,5 @@ public class TrajetController {
       return "client/trajets/trajetInfos";
    }
 
+
 }
