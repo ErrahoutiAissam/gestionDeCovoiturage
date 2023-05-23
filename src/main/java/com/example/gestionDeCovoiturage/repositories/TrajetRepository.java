@@ -16,7 +16,7 @@ import java.util.List;
 public interface TrajetRepository extends JpaRepository<Trajet,Long> {
 
 
-    List<Trajet> findByVilleDepartOrVilleArriveContains(String villeDepart, String villeArrive, Pageable pageable);
+    List<Trajet> findByVilleDepartContainsOrVilleArriveContains(String villeDepart, String villeArrive, Pageable pageable);
 
     Page<Trajet> findAllByProposeur(Utilisateur utilisateur, Pageable pageable);
 
