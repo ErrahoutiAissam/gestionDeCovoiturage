@@ -115,20 +115,6 @@ public class TrajetService {
                 .map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
-    /**getting trajets historique*/
-
-    public List<TrajetDTO> getHistorique(int page, int size, String keyword) {
-        return keyword.isEmpty() ?
-                findHistorique(page, size) : findByKeyword(page, size, keyword);
-    }
-    public List<TrajetDTO> findHistorique( int page, int size) {
-        Long utilisateurID= Principal.getCurrentUser().getId();
-        Utilisateur utilisateur= utilisateurRepository.findById(utilisateurID).get();
-        Page<Trajet> trajetPage = trajetRepository.findAllByProposeurAndDateDepartLessThan( utilisateur,new Date(),PageRequest.of(page, size));
-        return trajetPage.getContent().stream()
-                .map(trajetMapper::trajetToTrajetDTO)
-                .collect(Collectors.toList());
-    }
 
     public List<UtilisateurDTO> getRestUsers(Long trajetId) throws NotFoundException {
         Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
