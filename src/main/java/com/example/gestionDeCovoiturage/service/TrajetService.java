@@ -4,6 +4,7 @@ import com.example.gestionDeCovoiturage.dto.reservation.ReservationMapper;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetDTO;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetMapper;
 import com.example.gestionDeCovoiturage.dto.user.UserMapper;
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.invalid.ReservationRequestException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.models.Reservation;
@@ -118,6 +119,8 @@ public class TrajetService {
                 .map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
+
+
 
 }
 

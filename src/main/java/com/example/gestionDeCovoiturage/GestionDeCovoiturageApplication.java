@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Date;
 
 @SpringBootApplication
-public class GestionDeCovoiturageApplication implements CommandLineRunner{
+public class GestionDeCovoiturageApplication {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -32,16 +32,6 @@ public class GestionDeCovoiturageApplication implements CommandLineRunner{
 	}
 
 
-	@Override
-	public void run(String... args) throws Exception {
-//
-//		Utilisateur utilisateur = new Utilisateur(null,"client1","client2","test@test.com",
-//				passwordEncoder.encode("12345678"),null,Role.CLIENT);
-//
-//		utilisateurRepository.save(utilisateur);
 
-		Trajet trajet=new Trajet(null,"v3","v4",new Date(),3,10.,utilisateurRepository.getReferenceById(2L),null);
-		trajetRepository.save(trajet);
-	}
 }
 
