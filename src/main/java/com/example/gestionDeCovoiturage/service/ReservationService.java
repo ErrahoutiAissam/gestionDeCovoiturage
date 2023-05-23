@@ -1,20 +1,26 @@
 package com.example.gestionDeCovoiturage.service;
 
 import com.example.gestionDeCovoiturage.dto.reservation.ReservationDTO;
+import com.example.gestionDeCovoiturage.dto.reservation.ReservationIdDTO;
 import com.example.gestionDeCovoiturage.dto.reservation.ReservationMapper;
+import com.example.gestionDeCovoiturage.dto.trajet.TrajetMapper;
+import com.example.gestionDeCovoiturage.dto.user.UserMapper;
 import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.AlreadyExistException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.models.EtatReservation;
 import com.example.gestionDeCovoiturage.models.Reservation;
 import com.example.gestionDeCovoiturage.models.Trajet;
+import com.example.gestionDeCovoiturage.models.Utilisateur;
 import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
+import com.example.gestionDeCovoiturage.utils.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +35,10 @@ public class ReservationService   {
 
     private final ReservationMapper reservationMapper;
 
+    private final TrajetMapper trajetMapper;
+
+    private final UserMapper userMapper;
+
 
     public ReservationDTO createReservation(ReservationDTO reservationDTO) throws AlreadyExistException {
 
@@ -39,11 +49,20 @@ public class ReservationService   {
              save(reservationMapper.createReservation(reservationDTO)));
     }
 
-    public ReservationDTO update(ReservationDTO reservationDTO, Long id) throws NotFoundException{
+    public ReservationDTO update(ReservationIdDTO res, Long id) throws NotFoundException{
         Reservation reservation = reservationRepo.findById(id)
                 .orElseThrow(NotFoundException::new);
 
-        reservationMapper.updateReservationFromDTO(reservationDTO, reservation);
+        if(res.getIdTrajet() != null ) {
+            Trajet trajet = trajetRepository.findById(res.getIdTrajet()).orElseThrow(NotFoundException::new);
+            reservation.setTrajet(trajet);
+        }
+
+        Utilisateur user = Principal.getCurrentUser();
+        reservation.setUtilisateur(user);
+        reservation.setEtat(reservation.getEtat());
+
+
 
         return reservationMapper.ResTOResDTO(reservationRepo.save(reservation));
 
@@ -60,6 +79,10 @@ public class ReservationService   {
 
         return reservationMapper.ResTOResDTO(reservationRepo.findById(id)
                 .orElseThrow(NotFoundException::new));
+    }
+    public Reservation getById2(Long id) throws NotFoundException {
+        return reservationRepo.findById(id).orElseThrow(NotFoundException::new);
+
     }
 
     public List<ReservationDTO> findAll(int page, int size) {
@@ -96,10 +119,41 @@ public class ReservationService   {
 
     }
 
-//    public Page<ReservationDTO> getReservationsPage(int page , int size){
-//            Page<Reservation> reservationPage = reservationRepo.findAll(PageRequest.of(page, size));
-//            return reservationPage.map(reservationMapper::ResTOResDTO);
-//    }
+    public List<Reservation> getAllReservations() {
+        return reservationRepo.findAll();
+    }
+
+    public ReservationDTO createFromIdTrajet(ReservationIdDTO reservationIdDTO) throws AlreadyExistException, NotFoundException {
+
+
+            Reservation reservation = new Reservation();
+            if(reservationIdDTO.getIdTrajet() != null ) {
+                Trajet trajet = trajetRepository.findById(reservationIdDTO.getIdTrajet()).orElseThrow(NotFoundException::new);
+                reservation.setTrajet(trajet);
+            }
+            Utilisateur user = Principal.getCurrentUser();
+            reservation.setUtilisateur(user);
+
+            reservation.setEtat(EtatReservation.EN_ATTENTE);
+
+
+        return reservationMapper.ResTOResDTO(reservationRepo.save(reservation));
+
+    }
+
+    public ReservationDTO createResFromIdTrajet(Long idTrajet){
+
+
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setTrajet(trajetMapper.trajetToTrajetDTO(trajetRepository.getReferenceById(idTrajet)));
+        reservationDTO.setUtilisateur(userMapper.utilisateurToUtilisateurDTO(Principal.getCurrentUser()));
+
+        return reservationDTO;
+
+
+    }
+
+
 
 
 
