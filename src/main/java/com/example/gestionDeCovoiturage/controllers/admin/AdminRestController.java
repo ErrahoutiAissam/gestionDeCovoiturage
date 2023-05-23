@@ -27,6 +27,7 @@ public class AdminRestController {
 
    @PostMapping("/create")
    public ResponseEntity<?> create(@RequestBody RegisterRequest registerRequest) throws EmailAlreadyUsedException {
+      System.out.println(registerRequest);
       return ResponseEntity.ok(clientService.create(registerRequest));
    }
 
