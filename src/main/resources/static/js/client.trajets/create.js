@@ -11,6 +11,8 @@ form.addEventListener('submit', (event) => {
         nbrPlacesDisponibles: formData.get('nbrPlacesDisponibles'),
         prixParPersonne: formData.get('prixParPersonne')
     };
+    console.log(formData);
+
     fetch('/api/client/trajets/create', {
         method: 'POST',
         headers: {
