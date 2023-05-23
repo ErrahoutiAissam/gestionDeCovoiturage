@@ -1,5 +1,6 @@
 package com.example.gestionDeCovoiturage.service;
 
+import com.example.gestionDeCovoiturage.dto.reservation.ReservationDTO;
 import com.example.gestionDeCovoiturage.dto.reservation.ReservationMapper;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetDTO;
 import com.example.gestionDeCovoiturage.dto.trajet.TrajetMapper;
@@ -50,7 +51,14 @@ public class TrajetService {
         Trajet trajet = trajetRepository.findById(id).orElseThrow(NotFoundException::new);
         TrajetDTO trajetDTO = trajetMapper.trajetToTrajetDTO(trajet);
         trajetDTO.setProposeur(userMapper.toUtilisateurResponseDTO(trajet.getProposeur()));
-        trajetDTO.setReservations(trajet.getReservations().stream().map(reservationMapper::ResTOResDTO).collect(Collectors.toList()));
+        trajetDTO.setReservations(trajet.getReservations().stream().map(
+                res -> {
+                    ReservationDTO resDTO = new ReservationDTO();
+                    resDTO.setEtat(res.getEtat());
+                    resDTO.setUtilisateur(userMapper.toUtilisateurResponseDTO(res.getUtilisateur()));
+                    return resDTO;
+                }
+        ).collect(Collectors.toList()));
         return trajetDTO;
     }
 
@@ -156,6 +164,9 @@ public class TrajetService {
     public void removeReservationFromTrajet(Long trajetId, Long resId) throws NotFoundException {
         Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
         Reservation reservation = reservationRepository.findById(resId).orElseThrow(NotFoundException::new);
+        if(reservation.getEtat().equals("CONFIRME")) {
+            trajet.setNbrPlacesDisponibles(trajet.getNbrPlacesDisponibles() + 1);
+        }
         trajet.getReservations().remove(reservation);
         trajetRepository.save(trajet);
     }
