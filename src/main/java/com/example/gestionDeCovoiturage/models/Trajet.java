@@ -38,7 +38,7 @@ public class Trajet {
     @ManyToOne
     private Utilisateur proposeur;
 
-    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
 }
