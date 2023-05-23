@@ -6,6 +6,7 @@ import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.service.TrajetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,17 @@ import java.util.List;
 public class AdminTrajetRestController {
 
    private final TrajetService trajetService;
+
+
+   @GetMapping
+   public ResponseEntity<?> allTrajets(
+           @RequestParam(name = "page", defaultValue = "0") int page,
+           @RequestParam(name = "size", defaultValue = "10") int size,
+           @RequestParam(name = "keyword", defaultValue = "") String keyword
+   ) {
+      return ResponseEntity.ok(trajetService.getAll(page,size, keyword));
+   }
+
 
 
    @PostMapping("/create")
