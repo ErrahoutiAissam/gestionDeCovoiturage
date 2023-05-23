@@ -40,8 +40,8 @@ public class GestionDeCovoiturageApplication implements CommandLineRunner{
 //
 //		utilisateurRepository.save(utilisateur);
 
-//		Trajet trajet=new Trajet(null,"v1","v2",new Date(),2,10.,utilisateurRepository.getReferenceById(2L),null);
-//		trajetRepository.save(trajet);
+		Trajet trajet=new Trajet(null,"v3","v4",new Date(),3,10.,utilisateurRepository.getReferenceById(2L),null);
+		trajetRepository.save(trajet);
 	}
 }
 

@@ -178,11 +178,6 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a th:href="@{/client/trajets-reserves}" class="menu-link">
-                                <div data-i18n="Account">Trajets réservés</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
                             <a th:href="@{/client/trajets-historique}" class="menu-link">
                                 <div data-i18n="Account">Historique</div>
                             </a>
@@ -360,7 +355,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/client/trajets/{id}(id=${trajet.id})}"
+                                                <a class="dropdown-item" th:href="@{/client/Selected/{id}(id=${trajet.id})}"
                                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a>
 <!--                                                <a class="dropdown-item" onclick="deleteTrajet(${trajet.id})"-->
                                                 <a class="dropdown-item"><i class="bx bx-trash me-2"></i> Delete</a>

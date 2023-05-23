@@ -13,7 +13,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
     Optional<Utilisateur> findByEmail(String email);
     boolean existsByEmail(String email);
-
     List<Utilisateur> findByNomOrPrenomOrEmailContains(String nom, String prenom, String email, Pageable pageable);
 
 //    Optional<Utilisateur> findById(Long id);

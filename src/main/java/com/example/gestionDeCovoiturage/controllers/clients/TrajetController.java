@@ -57,22 +57,13 @@ public class TrajetController {
       return "client/trajets/proposes";
    }
 
-   @GetMapping("/trajets-reserves")
-   public String AllTrajetsReserves(
-           @RequestParam(name = "page", defaultValue = "0") int page,
-           @RequestParam(name = "size", defaultValue = "10") int size,
-           @RequestParam(name = "keyword", defaultValue = "") String keyword,
-           Model model) {
-//        model.addAttribute("trajetsProposes",trajetService.getProposes(page,size,keyword));
-      return "client/trajets/reserves";
-   }
 
    @GetMapping("/trajets-create")
    public String showCreationForm() {
       return "client/trajets/create";
    }
 
-   @GetMapping("/{id}")
+   @GetMapping("/Selected/{id}")
    public String trajetSelected(@PathVariable Long id, Model model) throws NotFoundException {
       model.addAttribute("trajetSelected", trajetService.getById(id));
       return "client/trajets/trajetInfos";

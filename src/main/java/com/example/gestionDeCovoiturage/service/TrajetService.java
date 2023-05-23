@@ -105,12 +105,11 @@ public class TrajetService {
                 .map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
-
-/*findAllByDateDepartLessThan*/
+    /**getting trajets historique*/
 
     public List<TrajetDTO> getHistorique(int page, int size, String keyword) {
         return keyword.isEmpty() ?
-                findPropose(page, size) : findByKeyword(page, size, keyword);
+                findHistorique(page, size) : findByKeyword(page, size, keyword);
     }
     public List<TrajetDTO> findHistorique( int page, int size) {
         Utilisateur utilisateur= Objects.requireNonNull(Principal.getCurrentUser());

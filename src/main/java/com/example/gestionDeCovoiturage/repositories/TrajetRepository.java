@@ -20,4 +20,6 @@ public interface TrajetRepository extends JpaRepository<Trajet,Long> {
     Page<Trajet> findAllByProposeurAndDateDepartLessThan(Utilisateur utilisateur,Date date,Pageable pageable);
 
     Page<Trajet> findAllByProposeur(Utilisateur utilisateur, Pageable pageable);
+
+
 }

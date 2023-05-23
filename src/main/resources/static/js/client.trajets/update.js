@@ -13,7 +13,7 @@ form.addEventListener('submit', (event) => {
         prixParPersonne: formData.get('prixParPersonne'),
     };
 console.log(formData);
-    fetch('/api/trajets/update', {
+    fetch('/api/client/trajets/update', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
