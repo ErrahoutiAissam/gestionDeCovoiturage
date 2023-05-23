@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin/trajets")
 @RequiredArgsConstructor
@@ -28,6 +30,41 @@ public class AdminTrajetRestController {
       System.out.println(trajetDTO);
       trajetService.update(trajetDTO);
       return ResponseEntity.ok().build();
+   }
+
+   @DeleteMapping("/{id}")
+   public ResponseEntity<?> delete(@PathVariable Long id) throws NotFoundException {
+      trajetService.deleteTrajet(id);
+      return ResponseEntity.ok().build();
+   }
+
+   @PostMapping("/{trajetId}/add-reservation")
+   public ResponseEntity<?> addReservationsToTrajet(
+           @PathVariable Long trajetId,
+           @RequestBody List<Long> ids) throws NotFoundException {
+      trajetService.addReservationsToTrajet(trajetId, ids);
+      return ResponseEntity.ok().build();
+   }
+
+
+   @DeleteMapping("/{trajetId}/remove")
+   public ResponseEntity<?> removeReservationFromTrajet(
+           @PathVariable Long trajetId,
+           @RequestParam("resId") Long resId
+           ) throws NotFoundException {
+      trajetService.removeReservationFromTrajet(trajetId, resId);
+      return ResponseEntity.ok().build();
+   }
+
+   @PutMapping("/{trajetId}/reservations/{resId}")
+   public ResponseEntity<?> confirmState(
+           @PathVariable Long trajetId,
+           @PathVariable Long resId
+           ) throws NotFoundException {
+      if(trajetService.confirmState(trajetId, resId)) {
+         return ResponseEntity.ok().build();
+      }
+      return ResponseEntity.badRequest().build();
    }
 
 

@@ -161,6 +161,17 @@ public class TrajetService {
     }
 
 
+    public boolean confirmState(Long trajetId, Long resId) throws NotFoundException {
+        Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
+        Reservation reservation = reservationRepository.findById(resId).orElseThrow(NotFoundException::new);
+        int nbrDisp = trajet.getNbrPlacesDisponibles();
+        if(nbrDisp == 0) return false;
+        reservation.setEtat(EtatReservation.CONFIRME);
+        trajet.setNbrPlacesDisponibles(nbrDisp  - 1);
+        trajetRepository.save(trajet);
+        return true;
+    }
+
 
 
 }

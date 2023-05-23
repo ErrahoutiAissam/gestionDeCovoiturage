@@ -275,6 +275,89 @@
               </form>
             </div>
           </div>
+          <div class="card mt-3">
+            <h5 class="card-header">Les reservations</h5>
+            <div class="card-body">
+              <div class="mt-3" style="text-align: right;">
+                <!-- Button trigger modal -->
+                <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCenter"
+                >
+                  Ajouter
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Ajouter des reservations</h5>
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                        ></button>
+                      </div>
+                      <form onsubmit="saveData()">
+                        <div class="modal-body">
+                          <input class="form-control" type="search" id="searchInput" placeholder="chercher un utilisateur"/>
+                          <div style="height: 200px; width: auto; overflow-y: scroll; text-align: left">
+                            <div style="display: block;" th:each="user : ${users}" class="reservation">
+                              <input
+                                      th:value="${user.id}"
+                                      type="checkbox"
+                                      class="form-check-input"
+                                      name="selectedContacts"
+                              />
+                              <img th:src="${user.imageUrl}" height="20" alt="-">
+                              <label class="form-check-label" th:text="${user.nom + ' ' + user.prenom}"> </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Fermer
+                          </button>
+                          <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="table mt-3">
+                <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>Photo</th>
+                  <th>Etat</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr th:each="reservation : ${trajet.reservations}">
+                  <td th:text="${reservation.utilisateur.nom}"></td>
+                  <td th:text="${reservation.utilisateur.prenom}"></td>
+                  <td><img th:src="${reservation.utilisateur.imageUrl}" height="30" alt="-"/></td>
+                  <td th:text="${reservation.etat}"></td>
+                  <td>
+                    <form>
+                      <input type="hidden" name="contactId" th:value="${reservation.id}"/>
+                      <button type="submit" class="dropdown-item"
+                      ><i class="bx bx-trash me-1"></i></button
+                      >
+                    </form>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
 
@@ -300,6 +383,7 @@
 <!-- / Layout wrapper -->
 
 <script th:src="@{/js/admin/trajets/update.js}"></script>
+<script th:src="@{/js/admin/trajets/add-reservation.js}"></script>
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 <script th:src="@{/assets/vendor/js/bootstrap.js}"></script>

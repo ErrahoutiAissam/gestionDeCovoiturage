@@ -50,6 +50,7 @@ public class AdminTrajetController {
    @GetMapping("/trajets/{id}")
    public String showTrajetPage(@PathVariable Long id, Model model) throws NotFoundException {
       model.addAttribute("trajet", trajetService.getById(id));
+      model.addAttribute("users", trajetService.getRestUsers(id));
       return "admin/trajets/trajet";
    }
 
