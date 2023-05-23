@@ -7,6 +7,7 @@ import com.example.gestionDeCovoiturage.dto.user.UserMapper;
 import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.exceptions.invalid.ReservationRequestException;
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
+import com.example.gestionDeCovoiturage.models.EtatReservation;
 import com.example.gestionDeCovoiturage.models.Reservation;
 import com.example.gestionDeCovoiturage.models.Trajet;
 import com.example.gestionDeCovoiturage.models.Utilisateur;
@@ -137,6 +138,30 @@ public class TrajetService {
         return restUsers.stream().map(userMapper::toUtilisateurResponseDTO)
                 .collect(Collectors.toList());
     }
+
+
+    public void addReservationsToTrajet(Long trajetId, List<Long> ids) throws NotFoundException {
+        Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
+        for(Long id : ids) {
+            Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow();
+            Reservation reservation = new Reservation();
+            reservation.setUtilisateur(utilisateur);
+            reservation.setTrajet(trajet);
+            reservation.setEtat(EtatReservation.EN_ATTENTE);
+            trajet.getReservations().add(reservationRepository.save(reservation));
+        }
+        trajetRepository.save(trajet);
+    }
+
+    public void removeReservationFromTrajet(Long trajetId, Long resId) throws NotFoundException {
+        Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
+        Reservation reservation = reservationRepository.findById(resId).orElseThrow(NotFoundException::new);
+        trajet.getReservations().remove(reservation);
+        trajetRepository.save(trajet);
+    }
+
+
+
 
 }
 
