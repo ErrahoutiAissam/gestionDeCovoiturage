@@ -22,8 +22,6 @@ public class ClientController {
 
    @GetMapping("/{id}")
    public String profile(@PathVariable Long id, Model model) throws NotFoundException {
-
-
       model.addAttribute("user", clientService.getUserById(id));
       return "admin/utilisateurs/profile";
    }
