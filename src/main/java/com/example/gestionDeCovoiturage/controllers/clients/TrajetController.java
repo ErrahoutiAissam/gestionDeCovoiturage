@@ -27,7 +27,7 @@ public class TrajetController {
    public String allTrajets(
            Model model,
            @RequestParam(name = "page", defaultValue = "0") int page,
-           @RequestParam(name = "size", defaultValue = "10") int size,
+           @RequestParam(name = "size", defaultValue = "30") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword
    ) {
       model.addAttribute("trajets",trajetService.getAll(page, size, keyword));
@@ -37,7 +37,7 @@ public class TrajetController {
    @GetMapping("/trajets-proposes")
    public String AllTrajetsProposes(
            @RequestParam(name = "page", defaultValue = "0") int page,
-           @RequestParam(name = "size", defaultValue = "10") int size,
+           @RequestParam(name = "size", defaultValue = "30") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword,
 
            Model model) {
@@ -54,6 +54,7 @@ public class TrajetController {
    @GetMapping("/Selected/{id}")
    public String trajetSelected(@PathVariable Long id, Model model) throws NotFoundException {
       model.addAttribute("trajetSelected", trajetService.getById(id));
+      model.addAttribute("users", trajetService.getRestUsers(id));
       return "client/trajets/trajetInfos";
    }
 
