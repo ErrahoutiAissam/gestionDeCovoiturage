@@ -1,20 +1,20 @@
-function deleteReservation(element) {
+function deleteTrajet(element) {
 
-    const reservationId = $(element).data("reservation-id");
-    console.log(reservationId)
+    const trajetId = $(element).data("trajet-id");
+    console.log(trajetId)
 
-    if (confirm('Est-vous sûr de supprimer cette reservation')) {
+    if (confirm('Est-vous sûr de supprimer ce Trajet')) {
 
-    $.ajax({
-        url: "/api/reservation/" + reservationId,
-        type: "DELETE",
-        success: function () {
-            // Remove the deleted reservation from the table
-            $(element).closest("tr").remove();
-        },
-        error: function (error) {
-            console.log("Error deleting reservation:", error);
-        }
-    });
+        $.ajax({
+            url: "/api/admin/trajets/" + trajetId,
+            type: "DELETE",
+            success: function () {
+                // Remove the deleted trajet from the table
+                $(element).closest("tr").remove();
+            },
+            error: function (error) {
+                console.log("Error deleting Trajet:", error);
+            }
+        });
     }
 }
