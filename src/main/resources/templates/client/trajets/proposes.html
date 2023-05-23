@@ -357,8 +357,9 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" th:href="@{/client/Selected/{id}(id=${trajet.id})}"
                                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a>
-<!--                                                <a class="dropdown-item" onclick="deleteTrajet(${trajet.id})"-->
-                                                <a class="dropdown-item"><i class="bx bx-trash me-2"></i> Delete</a>
+                                                <a class="dropdown-item " th:data-trajet-id="${trajet.getId()}" onclick="deleteTrajet(this)" >
+                                                    <i class="bx bx-trash me-2"></i> Delete</a
+                                                >
 
                                             </div>
                                         </div>
@@ -420,6 +421,10 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
+
+<script th:src="@{/js/admin/trajets/delete.js}"></script>
+
+
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
