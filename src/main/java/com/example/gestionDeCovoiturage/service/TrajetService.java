@@ -85,7 +85,7 @@ public class TrajetService {
     }
 
     public List<TrajetDTO> findByKeyword(int page, int size, String keyword) {
-        return trajetRepository.findByVilleDepartOrVilleArrive(keyword,keyword,PageRequest.of(page, size))
+        return trajetRepository.findByVilleDepartOrVilleArriveContains(keyword,keyword,PageRequest.of(page, size))
                 .stream().map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
