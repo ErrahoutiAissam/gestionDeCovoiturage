@@ -17,7 +17,6 @@ public class TrajetRestController {
 
    private final TrajetService trajetService;
 
-
    @GetMapping
    public ResponseEntity<?> getAll(
            @RequestParam(name = "page", defaultValue = "0") int page,

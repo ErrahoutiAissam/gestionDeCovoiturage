@@ -17,7 +17,6 @@ public interface TrajetRepository extends JpaRepository<Trajet,Long> {
 
 
     List<Trajet> findByVilleDepartOrVilleArrive(String villeDepart, String villeArrive, Pageable pageable);
-    Page<Trajet> findAllByProposeurAndDateDepartLessThan(Utilisateur utilisateur,Date date,Pageable pageable);
 
     Page<Trajet> findAllByProposeur(Utilisateur utilisateur, Pageable pageable);
 
