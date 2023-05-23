@@ -1,9 +1,6 @@
 package com.example.gestionDeCovoiturage;
 
-import com.example.gestionDeCovoiturage.models.EtatReservation;
-import com.example.gestionDeCovoiturage.models.Reservation;
-import com.example.gestionDeCovoiturage.models.Role;
-import com.example.gestionDeCovoiturage.models.Utilisateur;
+import com.example.gestionDeCovoiturage.models.*;
 import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
 import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
@@ -12,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Date;
 
 @SpringBootApplication
 public class GestionDeCovoiturageApplication implements CommandLineRunner{
@@ -40,6 +39,9 @@ public class GestionDeCovoiturageApplication implements CommandLineRunner{
 //				passwordEncoder.encode("12345678"),null,Role.CLIENT);
 //
 //		utilisateurRepository.save(utilisateur);
+
+//		Trajet trajet=new Trajet(null,"v1","v2",new Date(),2,10.,utilisateurRepository.getReferenceById(2L),null);
+//		trajetRepository.save(trajet);
 	}
 }
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Objects;
+
 @Controller
 @RequestMapping("/client")
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class TrajetController {
            @RequestParam(name = "size", defaultValue = "10") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword,
            Model model) {
-//        model.addAttribute("trajetHistorique",trajetService.getAll(page,size,keyword));
+        model.addAttribute("trajetHistorique",trajetService.getHistorique(page,size,keyword));
       return "client/trajets/historique";
    }
 
@@ -49,6 +51,7 @@ public class TrajetController {
            @RequestParam(name = "page", defaultValue = "0") int page,
            @RequestParam(name = "size", defaultValue = "10") int size,
            @RequestParam(name = "keyword", defaultValue = "") String keyword,
+
            Model model) {
         model.addAttribute("trajetsProposes",trajetService.getProposes(page,size,keyword));
       return "client/trajets/proposes";

@@ -1,6 +1,7 @@
 package com.example.gestionDeCovoiturage.repositories;
 
 
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.models.EtatReservation;
 import com.example.gestionDeCovoiturage.models.Reservation;
 import com.example.gestionDeCovoiturage.models.Trajet;
