@@ -75,6 +75,8 @@ public class AdminTrajetRestController {
            @PathVariable Long resId
            ) throws NotFoundException {
       if(trajetService.confirmState(trajetId, resId)) {
+         System.out.println(trajetId);
+         System.out.println(resId);
          return ResponseEntity.ok().build();
       }
       return ResponseEntity.badRequest().build();

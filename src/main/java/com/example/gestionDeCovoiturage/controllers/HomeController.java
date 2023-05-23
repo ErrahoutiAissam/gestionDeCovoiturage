@@ -11,6 +11,8 @@ public class HomeController {
 
    @GetMapping("/index")
    public String home(Model model) {
+
+      model.addAttribute("user",Principal.getCurrentUser());
       return "index";
    }
 

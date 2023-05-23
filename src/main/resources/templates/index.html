@@ -284,7 +284,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="pages/profile/profile.html">
+                  <a class="dropdown-item" th:href="@{/clients/{id}(id=${user.getId()})}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>

@@ -280,8 +280,10 @@
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#modalCenter"
+                        value=""
                 >
                   Ajouter
+
                 </button>
 
                 <!-- Modal -->
@@ -329,11 +331,12 @@
               <table class="table mt-3">
                 <thead>
                 <tr>
+
+                  <th>Photo</th>
                   <th>Nom</th>
                   <th>Prenom</th>
-                  <th>Photo</th>
                   <th>Etat</th>
-                  <th>Action</th>
+<!--                  <th>Action</th>-->
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -343,19 +346,21 @@
                   <td th:text="${reservation.utilisateur.prenom}"></td>
                   <td th:text="${reservation.etat}"></td>
                   <td>
-                    <div class="dropdown">
-                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                      </button>
-                      <div class="dropdown-menu">
-                        <a th:if="${reservation.etat != 'CONFIRME'}" class="dropdown-item">
-                          <i class="bx bx-edit-alt me-2"></i> Confirme
-                        </a>
-                        <a class="dropdown-item" >
-                          <i class="bx bx-trash me-2"></i> Delete
-                        </a>
-                      </div>
-                    </div>
+<!--                    <div class="dropdown">-->
+<!--                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">-->
+<!--                        <i class="bx bx-dots-vertical-rounded"></i>-->
+<!--                      </button>-->
+<!--                      <div class="dropdown-menu">-->
+<!--&lt;!&ndash;                        <input type="hidden" name="trajet_id" id="trajet_id"  th:value="${trajet.getId()}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="hidden" name="res_id" th:id="'res_id_' + ${reservation.getId()}" th:value="${reservation.getId()}" />&ndash;&gt;-->
+<!--                        <a th:if="${reservation.etat != 'CONFIRME'}"  th:href="@{/admin/reservations/{id}(id=${reservation.id})}" id="confirme-res" class="dropdown-item">-->
+<!--                          <i  class="bx bx-edit-alt me-2"></i> Confirme-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item" >-->
+<!--                          <i class="bx bx-trash me-2"></i> Delete-->
+<!--                        </a>-->
+<!--                      </div>-->
+<!--                    </div>-->
                   </td>
                 </tr>
                 </tbody>
@@ -388,6 +393,7 @@
 
 <script th:src="@{/js/admin/trajets/update.js}"></script>
 <script th:src="@{/js/admin/trajets/crud-reservation.js}"></script>
+<script th:src="@{/js/admin/trajets/confirme.js}"></script>
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 <script th:src="@{/assets/vendor/js/bootstrap.js}"></script>
