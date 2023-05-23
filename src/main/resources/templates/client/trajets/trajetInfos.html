@@ -371,7 +371,7 @@
                                             <th>Prenom</th>
                                             <th>Photo</th>
                                             <th>Etat</th>
-                                            <th>Action</th>
+<!--                                            <th>Action</th>-->
                                         </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -380,21 +380,21 @@
                                             <td th:text="${reservation.utilisateur.nom}"></td>
                                             <td th:text="${reservation.utilisateur.prenom}"></td>
                                             <td th:text="${reservation.etat}"></td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a th:if="${reservation.etat != 'CONFIRME'}" class="dropdown-item">
-                                                            <i class="bx bx-edit-alt me-2"></i> Confirme
-                                                        </a>
-                                                        <a class="dropdown-item" >
-                                                            <i class="bx bx-trash me-2"></i> Delete
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
+<!--                                            <td>-->
+<!--                                                <div class="dropdown">-->
+<!--                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">-->
+<!--                                                        <i class="bx bx-dots-vertical-rounded"></i>-->
+<!--                                                    </button>-->
+<!--                                                    <div class="dropdown-menu">-->
+<!--                                                        <a th:if="${reservation.etat != 'CONFIRME'}" class="dropdown-item">-->
+<!--                                                            <i class="bx bx-edit-alt me-2"></i> Confirme-->
+<!--                                                        </a>-->
+<!--                                                        <a class="dropdown-item" >-->
+<!--                                                            <i class="bx bx-trash me-2"></i> Delete-->
+<!--                                                        </a>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
                                         </tr>
                                         </tbody>
                                     </table>
