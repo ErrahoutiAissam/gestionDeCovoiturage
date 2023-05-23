@@ -6,8 +6,11 @@ import com.example.gestionDeCovoiturage.exceptions.invalid.ReservationRequestExc
 import com.example.gestionDeCovoiturage.exceptions.notfound.NotFoundException;
 import com.example.gestionDeCovoiturage.models.Reservation;
 import com.example.gestionDeCovoiturage.models.Trajet;
+import com.example.gestionDeCovoiturage.models.Utilisateur;
 import com.example.gestionDeCovoiturage.repositories.ReservationRepository;
 import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
+import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
+import com.example.gestionDeCovoiturage.utils.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,8 +27,12 @@ public class TrajetService {
     private final ReservationRepository reservationRepository;
     private final TrajetMapper trajetMapper;
 
+    private final UtilisateurRepository utilisateurRepository;
+
     public  TrajetDTO create(TrajetDTO trajetDTO) {
         Trajet trajet = trajetMapper.createTrajet(trajetDTO);
+        Utilisateur proposeur = utilisateurRepository.findById(Principal.getCurrentUser().getId()).orElseThrow();
+        trajet.setProposeur(proposeur);
         return trajetMapper.trajetToTrajetDTO(trajetRepository.save(trajet));
     }
 
