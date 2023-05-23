@@ -250,7 +250,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4" >Trajets/<span class="text-muted fw-light" th:text="${trajetSelected.villeDepart}">-></span><span class="text-muted fw-light" th:text="${trajetSelected.villeArrive}"></span> </h4>
+                    <h4 class="fw-bold py-3 mb-4" >Trajets/<span class="text-muted fw-light" th:text="${trajetSelected.villeDepart}"></span> --> <span class="text-muted fw-light" th:text="${trajetSelected.villeArrive}"></span> </h4>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -258,9 +258,11 @@
                                 <h5 class="card-header">Détails du trajet proposé</h5>
                                 <hr class="my-0" />
                                 <div class="card-body">
-                                    <form id="UpdateForm" method="POST" onsubmit="return false">
+                                    <form id="UpdateForm">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
+                                                <input id="id" name="id" type="hidden" th:value="${trajetSelected.id}">
+
                                                 <label for="villeDepart" class="form-label">Ville de départ</label>
                                                 <input class="form-control" type="text" id="villeDepart" name="villeDepart"
                                                         th:value="${trajetSelected.villeDepart}"
@@ -269,24 +271,31 @@
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="villeArrivee" class="form-label">ville d'arrivée</label>
-                                                <input class="form-control" type="text" name="villeArrivee" id="villeArrivee"
+                                                <label for="villeArrive" class="form-label">ville d'arrivée</label>
+                                                <input class="form-control" type="text" name="villeArrive" id="villeArrive"
                                                        th:value="${trajetSelected.villeArrive}"
                                                        placeholder="Ville 2"
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="nbrPlacesDisponibles" class="form-label">Nombre de Places disponibles</label>
-                                                <input class="form-control" type="text" name="nbrPlacesDisponibles" id="nbrPlacesDisponibles"
+                                                <input class="form-control" type="number" name="nbrPlacesDisponibles" id="nbrPlacesDisponibles"
                                                        th:value="${trajetSelected.nbrPlacesDisponibles}"
                                                        placeholder="2"
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="PrixParPersonne" class="form-label">Prix Par Personne</label>
-                                                <input class="form-control" type="text" name="PrixParPersonne" id="PrixParPersonne"
+                                                <label for="prixParPersonne" class="form-label">Prix Par Personne</label>
+                                                <input class="form-control" type="number" name="prixParPersonne" id="prixParPersonne"
                                                        th:value="${trajetSelected.prixParPersonne}"
                                                 />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="dateDepart" class="form-label">date de départ</label>
+                                                <input class="form-control" type="datetime-local" name="dateDepart" id="dateDepart"
+                                                       th:value="${trajetSelected.dateDepart}"
+                                                />
+
                                             </div>
                                         </div>
                                         <div class="mt-2">
@@ -311,26 +320,6 @@
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        , made with ❤️ by
-                        <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-                    </div>
-                    <div>
-                        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                        <a
-                                href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank"
-                                class="footer-link me-4"
-                        >Documentation</a
-                        >
-
-                        <a
-                                href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank"
-                                class="footer-link me-4"
-                        >Support</a
-                        >
                     </div>
                 </div>
             </footer>

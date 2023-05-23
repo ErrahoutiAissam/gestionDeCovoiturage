@@ -46,7 +46,7 @@ public ResponseEntity<?> update(@RequestBody TrajetDTO trajetDTO) throws NotFoun
     return ResponseEntity.ok().build();
 }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTrajet(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<?> delete(@PathVariable Long id) throws NotFoundException {
         trajetService.deleteTrajet(id);
         return ResponseEntity.ok("Trajet supprimé avec succès");
     }

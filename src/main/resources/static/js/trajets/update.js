@@ -1,16 +1,18 @@
-const form = document.getElementById('Updateform');
+const form = document.getElementById('UpdateForm');
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
     const registerRequest = {
+        id:formData.get('id'),
         villeDepart: formData.get('villeDepart'),
-        villeArrivee: formData.get('villeArrivee'),
+        villeArrive: formData.get('villeArrive'),
+        dateDepart:formData.get('dateDepart'),
         nbrPlacesDisponibles: formData.get('nbrPlacesDisponibles'),
-        PrixParPersonne: formData.get('PrixParPersonne'),
+        prixParPersonne: formData.get('prixParPersonne'),
     };
-
+console.log(formData);
     fetch('/api/trajets/update', {
         method: 'PUT',
         headers: {

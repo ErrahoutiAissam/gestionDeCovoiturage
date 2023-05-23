@@ -35,7 +35,7 @@ public class Trajet {
     @Column(nullable = false)
     private Double prixParPersonne;
 
-    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Reservation> reservations;
 
 }

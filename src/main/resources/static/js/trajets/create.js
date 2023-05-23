@@ -6,12 +6,13 @@ form.addEventListener('submit', (event) => {
     const formData = new FormData(form);
     const registerRequest = {
         villeDepart: formData.get('villeDepart'),
-        villeArrivee: formData.get('villeArrivee'),
+        villeArrive: formData.get('villeArrive'),
         dateDepart: formData.get('dateDepart'),
         nbrPlacesDisponibles: formData.get('nbrPlacesDisponibles'),
         prixParPersonne: formData.get('prixParPersonne')
     };
 
+    console.log(registerRequest);
     fetch('/api/trajets/create', {
         method: 'POST',
         headers: {

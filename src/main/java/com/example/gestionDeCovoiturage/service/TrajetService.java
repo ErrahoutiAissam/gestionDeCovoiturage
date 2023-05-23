@@ -56,13 +56,6 @@ public class TrajetService {
         return trajetMapper.trajetToTrajetDTO(trajetRepository.save(trajetToModify));
     }
 
-    public List<TrajetDTO> findAll(int page, int size) {
-        return trajetRepository.findAll(PageRequest.of(page, size))
-                .getContent().stream()
-                .map(trajetMapper::trajetToTrajetDTO)
-                .collect(Collectors.toList());
-    }
-
     public List<TrajetDTO> findByKeyword(int page, int size, String keyword) {
         return trajetRepository.findByVilleDepartOrVilleArrive(keyword,keyword,PageRequest.of(page, size))
                 .stream().map(trajetMapper::trajetToTrajetDTO)
@@ -78,8 +71,18 @@ public class TrajetService {
                 findAll(page, size) : findByKeyword(page, size, keyword);
     }
 
-    public List<TrajetDTO> trajetNonRealise(){
-        return trajetMapper.toTrajetDTOList(trajetRepository.findByDateDepartLessThan(new Date()));
+    public List<TrajetDTO> findAll(int page, int size) {
+        return trajetRepository.findAll(PageRequest.of(page, size))
+                .getContent().stream()
+                .map(trajetMapper::trajetToTrajetDTO)
+                .collect(Collectors.toList());
+    }
+    public List<TrajetDTO> findHistory(int page, int size) {
+        List<TrajetDTO> trajetDTOS=trajetMapper.toTrajetDTOList(trajetRepository.findAllByDateDepartLessThan(new Date()));
+        return trajetRepository.findAll(PageRequest.of(page, size))
+                .getContent().stream()
+                .map(trajetMapper::trajetToTrajetDTO)
+                .collect(Collectors.toList());
     }
 
 

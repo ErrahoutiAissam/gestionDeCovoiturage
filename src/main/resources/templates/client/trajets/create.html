@@ -265,28 +265,28 @@
                     <div class="card">
                         <h5 class="card-header">Création d'un trajet</h5>
                         <div class="card-body">
-                            <form method="post" th:action="@{/api/trajets/create}" id="trajetForm">
+                            <form method="post"  id="trajetForm">
                                 <div class="mb-3">
                                     <label class="form-label" for="villeDepart">ville de Départ</label>
-                                    <input type="text" class="form-control" id="villeDepart" placeholder="ville de départ" />
+                                    <input type="text" class="form-control" id="villeDepart" name="villeDepart" placeholder="ville de départ" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="villeArrivee">ville d'arrivée</label>
-                                    <input type="text" class="form-control" id="villeArrivee" placeholder="ville d'arrivée" />
+                                    <label class="form-label" for="villeArrive">ville d'arrivée</label>
+                                    <input type="text" class="form-control" id="villeArrive" name="villeArrive" placeholder="ville d'arrivée" />
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="dateDepart" class="col-md-2 col-form-label">Date de départ</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="date" value="2023-05-22" id="dateDepart" />
+                                        <input class="form-control" type="datetime-local" value="2023-05-22 17:00" name="dateDepart" id="dateDepart" />
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="nbrPlacesDisponibles">Nombre de places disponibles</label>
-                                    <input type="number" class="form-control" id="nbrPlacesDisponibles" placeholder="2.." />
+                                    <input type="number" class="form-control" id="nbrPlacesDisponibles"name="nbrPlacesDisponibles" placeholder="2.." />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="prixParPersonne">Prix par personne</label>
-                                    <input type="number" class="form-control" id="prixParPersonne" placeholder="20" />
+                                    <input type="number" class="form-control" id="prixParPersonne" name="prixParPersonne" placeholder="20" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
 
