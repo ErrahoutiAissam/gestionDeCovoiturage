@@ -34,18 +34,6 @@ public class TrajetController {
       return "client/trajets/all";
    }
 
-
-   @GetMapping("/trajets-historique")
-   public String allTrajetshistory(
-           @RequestParam(name = "page", defaultValue = "0") int page,
-           @RequestParam(name = "size", defaultValue = "10") int size,
-           @RequestParam(name = "keyword", defaultValue = "") String keyword,
-           Model model) {
-        model.addAttribute("trajetHistorique",trajetService.getHistorique(page,size,keyword));
-      return "client/trajets/historique";
-   }
-
-
    @GetMapping("/trajets-proposes")
    public String AllTrajetsProposes(
            @RequestParam(name = "page", defaultValue = "0") int page,
