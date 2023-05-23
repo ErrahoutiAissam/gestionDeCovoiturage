@@ -120,7 +120,23 @@ public class TrajetService {
                 .collect(Collectors.toList());
     }
 
+    public List<UtilisateurDTO> getRestUsers(Long trajetId) throws NotFoundException {
+        Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(NotFoundException::new);
+        if(trajet.getReservations().isEmpty()){
+            return utilisateurRepository.findAll()
+                    .stream().map(userMapper::toUtilisateurResponseDTO)
+                    .collect(Collectors.toList());
+        }
 
+        List<Utilisateur> restUsers = utilisateurRepository.findByIdNotIn(
+                trajet.getReservations().stream().map(
+                        res -> res.getUtilisateur().getId()
+                ).collect(Collectors.toList())
+        );
+
+        return restUsers.stream().map(userMapper::toUtilisateurResponseDTO)
+                .collect(Collectors.toList());
+    }
 
 }
 
