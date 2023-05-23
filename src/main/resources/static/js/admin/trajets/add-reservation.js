@@ -1,8 +1,10 @@
-function saveData() {
-    var selectedIds = [];
-    var checkboxes = document.getElementsByName("selectedContacts");
+const searchForm = document.getElementById('searchForm');
 
-    for (var i = 0; i < checkboxes.length; i++) {
+searchForm.addEventListener('submit', (event) => {
+    const selectedIds = [];
+    const checkboxes = document.getElementsByName("selectedContacts");
+
+    for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             selectedIds.push(checkboxes[i].value);
         }
@@ -20,7 +22,6 @@ function saveData() {
         .then(response => {
             if (response.ok) {
                 console.log("OK");
-                window.location.href = '/admin/trajets/'+id.value;
             } else {
                 console.error("Error:", response.status);
             }
@@ -28,4 +29,4 @@ function saveData() {
         .catch(error => {
             console.error("Error:", error);
         });
-}
+})
