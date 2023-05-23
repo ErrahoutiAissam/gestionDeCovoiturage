@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
@@ -36,15 +35,11 @@ public class GestionDeCovoiturageApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-//		Reservation reservation = new Reservation();
 //
-//		reservation.setUtilisateur(utilisateurRepository.getReferenceById(7L));
-//		reservation.setTrajet(trajetRepository.getReferenceById(2L));
-//		reservation.setEtat(EtatReservation.EN_ATTENTE);
+//		Utilisateur utilisateur = new Utilisateur(null,"client1","client2","test@test.com",
+//				passwordEncoder.encode("12345678"),null,Role.CLIENT);
 //
-//		reservationRepository.save(reservation);
-
-
+//		utilisateurRepository.save(utilisateur);
 	}
 }
 

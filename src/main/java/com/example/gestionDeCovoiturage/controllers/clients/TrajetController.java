@@ -21,13 +21,15 @@ public class TrajetController {
    private final TrajetService trajetService;
 
 
-   @GetMapping("trajets")
+   @GetMapping("/trajets")
    public String allTrajets(
+           Model model,
            @RequestParam(name = "page", defaultValue = "0") int page,
            @RequestParam(name = "size", defaultValue = "10") int size,
-           @RequestParam(name = "keyword", defaultValue = "") String keyword,
-           Model model) {
-         return "client/trajets/all";
+           @RequestParam(name = "keyword", defaultValue = "") String keyword
+   ) {
+      model.addAttribute("trajets",trajetService.getAll(page, size, keyword));
+      return "client/trajets/all";
    }
 
 
@@ -62,7 +64,7 @@ public class TrajetController {
       return "client/trajets/reserves";
    }
 
-   @GetMapping("/create")
+   @GetMapping("/trajets-create")
    public String showCreationForm(Model model) {
       return "client/trajets/create";
    }
