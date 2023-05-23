@@ -14,11 +14,13 @@ import com.example.gestionDeCovoiturage.repositories.TrajetRepository;
 import com.example.gestionDeCovoiturage.repositories.UtilisateurRepository;
 import com.example.gestionDeCovoiturage.utils.Principal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,12 +79,9 @@ public class TrajetService {
                 .stream().map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
+    /**getting trajets all*/
 
     public List<TrajetDTO> getAll(int page, int size, String keyword) {
-        return keyword.isEmpty() ?
-                findAll(page, size) : findByKeyword(page, size, keyword);
-    }
-    public List<TrajetDTO> getProposes(int page, int size, String keyword) {
         return keyword.isEmpty() ?
                 findAll(page, size) : findByKeyword(page, size, keyword);
     }
@@ -93,14 +92,33 @@ public class TrajetService {
                 .map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
-    public List<TrajetDTO> findHistory(int page, int size) {
-        List<TrajetDTO> trajetDTOS=trajetMapper.toTrajetDTOList(trajetRepository.findAllByDateDepartLessThan(new Date()));
-        return trajetRepository.findAll(PageRequest.of(page, size))
-                .getContent().stream()
+
+    /**getting trajets proposes*/
+    public List<TrajetDTO> getProposes(int page, int size, String keyword) {
+        return keyword.isEmpty() ?
+                findPropose(page, size) : findByKeyword(page, size, keyword);
+    }
+    public List<TrajetDTO> findPropose( int page, int size) {
+       Utilisateur utilisateur= Objects.requireNonNull(Principal.getCurrentUser());
+        Page<Trajet> trajetPage = trajetRepository.findAllByProposeur( utilisateur,PageRequest.of(page, size));
+        return trajetPage.getContent().stream()
                 .map(trajetMapper::trajetToTrajetDTO)
                 .collect(Collectors.toList());
     }
 
+/*findAllByDateDepartLessThan*/
+
+    public List<TrajetDTO> getHistorique(int page, int size, String keyword) {
+        return keyword.isEmpty() ?
+                findPropose(page, size) : findByKeyword(page, size, keyword);
+    }
+    public List<TrajetDTO> findHistorique( int page, int size) {
+        Utilisateur utilisateur= Objects.requireNonNull(Principal.getCurrentUser());
+        Page<Trajet> trajetPage = trajetRepository.findAllByProposeurAndDateDepartLessThan( utilisateur,new Date(),PageRequest.of(page, size));
+        return trajetPage.getContent().stream()
+                .map(trajetMapper::trajetToTrajetDTO)
+                .collect(Collectors.toList());
+    }
 
 }
 

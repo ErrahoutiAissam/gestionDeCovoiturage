@@ -1,7 +1,10 @@
 package com.example.gestionDeCovoiturage.repositories;
 
+import com.example.gestionDeCovoiturage.dto.user.UtilisateurDTO;
 import com.example.gestionDeCovoiturage.models.Trajet;
 
+import com.example.gestionDeCovoiturage.models.Utilisateur;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,7 +17,7 @@ public interface TrajetRepository extends JpaRepository<Trajet,Long> {
 
 
     List<Trajet> findByVilleDepartOrVilleArrive(String villeDepart, String villeArrive, Pageable pageable);
-    List<Trajet> findAllByDateDepartLessThan(Date date);
+    Page<Trajet> findAllByProposeurAndDateDepartLessThan(Utilisateur utilisateur,Date date,Pageable pageable);
 
-
+    Page<Trajet> findAllByProposeur(Utilisateur utilisateur, Pageable pageable);
 }

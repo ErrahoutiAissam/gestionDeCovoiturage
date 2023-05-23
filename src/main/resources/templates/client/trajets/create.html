@@ -60,9 +60,9 @@
     <div class="layout-container">
         <!-- Menu -->
 
-      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-        <div class="app-brand demo">
-          <a th:href="@{/index}" class="app-brand-link">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a th:href="@{/index}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                         width="25"
@@ -118,120 +118,120 @@
                   </g>
                 </svg>
               </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Covoiturage
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">Covoiturage
             <br>
             <span class="app-brand-text demo menu-text" sec:authorize="hasAuthority('ADMIN')">administration</span>
           </span>
-          </a>
-          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-            <i class="bx bx-chevron-left bx-sm align-middle"></i>
-          </a>
-        </div>
-
-        <div class="menu-inner-shadow">
-        </div>
-
-        <ul  class="menu-inner py-1">
-          <!-- Dashboard -->
-          <li class="menu-item active">
-            <a th:href="@{/index}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-home-circle"></i>
-              <div data-i18n="Analytics">Tableau de bord </div>
-            </a>
-          </li>
-
-          <!--Les trajets pour Admin-->
-          <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon bx bx-car'></i>
-              <div data-i18n="Account Settings">Trajets</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a th:href="@{/admin/trajets}" class="menu-link">
-                  <div data-i18n="Account">Tous</div>
                 </a>
-              </li>
-              <li class="menu-item">
-                <a th:href="@{/admin/trajets-proposes}" class="menu-link">
-                  <div data-i18n="Notifications">Trajets proposés</div>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
                 </a>
-              </li>
+            </div>
+
+            <div class="menu-inner-shadow">
+            </div>
+
+            <ul  class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a th:href="@{/index}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Tableau de bord </div>
+                    </a>
+                </li>
+
+                <!--Les trajets pour Admin-->
+                <li sec:authorize="hasAuthority('ADMIN')" class="menu-item active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='menu-icon bx bx-car'></i>
+                        <div data-i18n="Account Settings">Trajets</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:href="@{/admin/trajets}" class="menu-link">
+                                <div data-i18n="Account">Tous</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:href="@{/admin/trajets-proposes}" class="menu-link">
+                                <div data-i18n="Notifications">Trajets proposés</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Les trajets pour Client-->
+                <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='menu-icon bx bx-car'></i>
+                        <div data-i18n="Account Settings">Trajets</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:href="@{/client/trajets}" class="menu-link">
+                                <div data-i18n="Notifications">Tous</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:href="@{/client/trajets-proposes}" class="menu-link">
+                                <div data-i18n="Account">Trajets proposés</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:href="@{/client/trajets-reserves}" class="menu-link">
+                                <div data-i18n="Account">Trajets réservés</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a th:href="@{/client/trajets-historique}" class="menu-link">
+                                <div data-i18n="Account">Historique</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/Les trajets pour client-->
+
+
+                <!--Les reservations pour Admin-->
+                <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='menu-icon bx bx-table'></i>
+                        <div data-i18n="Account Settings">Réservations</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:href="@{/admin/reservations}" class="menu-link">
+                                <div data-i18n="Notifications">Tous</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Les reservations pour client-->
+                <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class='menu-icon bx bx-table'></i>
+                        <div data-i18n="Account Settings">Réservations</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a th:href="@{/client/reservations}" class="menu-link">
+                                <div data-i18n="Notifications">Tous</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
+                    <a th:href="@{/admin/clients}" class="menu-link">
+                        <i class='menu-icon bx bx-user'></i>
+                        <div data-i18n="Boxicons">Utilisateurs</div>
+                    </a>
+                </li>
+
             </ul>
-          </li>
-
-          <!--Les trajets pour Client-->
-          <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon bx bx-car'></i>
-              <div data-i18n="Account Settings">Trajets</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a th:href="@{/client/trajets}" class="menu-link">
-                  <div data-i18n="Notifications">Tous</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a th:href="@{/client/trajets-proposes}" class="menu-link">
-                  <div data-i18n="Account">Trajets proposés</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a th:href="@{/client/trajets-reserves}" class="menu-link">
-                  <div data-i18n="Account">Trajets réservés</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a th:href="@{/client/trajets-historique}" class="menu-link">
-                  <div data-i18n="Account">Historique</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--/Les trajets pour client-->
-
-
-          <!--Les reservations pour Admin-->
-          <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon bx bx-table'></i>
-              <div data-i18n="Account Settings">Réservations</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a th:href="@{/admin/reservations}" class="menu-link">
-                  <div data-i18n="Notifications">Tous</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!--Les reservations pour client-->
-          <li sec:authorize="hasAuthority('CLIENT')" class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon bx bx-table'></i>
-              <div data-i18n="Account Settings">Réservations</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a th:href="@{/client/reservations}" class="menu-link">
-                  <div data-i18n="Notifications">Tous</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-
-          <li sec:authorize="hasAuthority('ADMIN')" class="menu-item">
-            <a th:href="@{/admin/clients}" class="menu-link">
-              <i class='menu-icon bx bx-user'></i>
-              <div data-i18n="Boxicons">Utilisateurs</div>
-            </a>
-          </li>
-
-        </ul>
-      </aside>
+        </aside>
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -248,18 +248,18 @@
                     <div class="card">
                         <h5 class="card-header">Création d'un trajet</h5>
                         <div class="card-body">
-                            <form method="post" th:action="@{/api/trajets/create}" id="trajetForm">
+                            <form method="post" id="form">
                                 <div class="mb-3">
                                     <label class="form-label" for="villeDepart">ville de Départ</label>
-                                    <input type="text" class="form-control" name ="villeDepart" id="villeDepart" placeholder="ville de départ" required/>
+                                    <input name="villeDepart" type="text" class="form-control" id="villeDepart" placeholder="ville de départ" required/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="villeArrive">ville d'arrivée</label>
-                                    <input type="text" class="form-control" name="villeArrive" id="villeArrive" placeholder="ville d'arrivée" required/>
+                                    <input name="villeArrive" type="text" class="form-control" id="villeArrive" placeholder="ville d'arrivée" required/>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="dateDepart" class="col-md-2 col-form-label">Date de départ</label>
-                                  <input class="form-control" type="date" name="dateDepart"  id="dateDepart" required/>
+                                    <label for="dateDepart" class="col-md-2 col-form-label">Date de départ</label>
+                                    <input name="dateDepart" class="form-control" type="datetime-local"  id="dateDepart" required/>
                                 </div>
                                 <div class="mb-3">
 
@@ -267,16 +267,17 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="nbrPlacesDisponibles">Nombre de places disponibles</label>
-                                    <input type="number" class="form-control" name="nbrPlacesDisponibles" id="nbrPlacesDisponibles" placeholder="2.." required/>
+                                    <input type="number" name="nbrPlacesDisponibles" class="form-control" id="nbrPlacesDisponibles" placeholder="2.." required/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="prixParPersonne">Prix par personne</label>
-                                    <input type="number" class="form-control" name="prixParPersonne" id="prixParPersonne" placeholder="20" required/>
+                                    <input name="prixParPersonne" type="number" class="form-control" id="prixParPersonne" placeholder="20" required/>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Ajouter</button>
-                                <button type="reset" class="btn btn-primary">Annuler</button>
-
-
+                                <div class="demo-inline-spacing">
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    <button type="reset" class="btn btn-secondary" >Annuler
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -305,7 +306,7 @@
 <!-- / Layout wrapper -->
 
 
-<script th:src="@{/js/trajets/create.js}"></script>
+<script th:src="@{/js/client/trajets/create.js}"></script>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->

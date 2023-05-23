@@ -327,7 +327,7 @@
                     </div>
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
-                        <h5 class="card-header">Trajets Proposés</h5>
+                        <h5 class="card-header">Trajets Proposés Par Vous</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
@@ -362,8 +362,8 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" th:href="@{/client/trajets/{id}(id=${trajet.id})}"
                                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                                                <a class="dropdown-item" onclick="deleteTrajet(${trajet.id})"
-                                                ><i class="bx bx-trash me-2"></i> Delete</a>
+<!--                                                <a class="dropdown-item" onclick="deleteTrajet(${trajet.id})"-->
+                                                <a class="dropdown-item"><i class="bx bx-trash me-2"></i> Delete</a>
 
                                             </div>
                                         </div>
@@ -426,8 +426,8 @@
 </div>
 <!-- / Layout wrapper -->
 
-<script th:src="@{/js/trajets/delete.js}"></script>
-<script th:src="@{/js/trajets/ajouter.js}"></script>
+<script th:src="@{/js/client.trajets/delete.js}"></script>
+<script th:src="@{/js/client.trajets/ajouter.js}"></script>
 
 
 <!-- Core JS -->

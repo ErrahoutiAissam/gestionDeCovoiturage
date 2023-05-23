@@ -1,4 +1,4 @@
-const form = document.getElementById('trajetForm');
+const form = document.getElementById('form');
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -11,9 +11,7 @@ form.addEventListener('submit', (event) => {
         nbrPlacesDisponibles: formData.get('nbrPlacesDisponibles'),
         prixParPersonne: formData.get('prixParPersonne')
     };
-
-    console.log(registerRequest);
-    fetch('/api/trajets/create', {
+    fetch('/api/client/trajets/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
