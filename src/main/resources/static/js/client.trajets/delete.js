@@ -5,6 +5,7 @@ function deleteTrajet(element) {
 
     if (confirm('Est-vous sûr de supprimer ce Trajet')) {
 
+
         $.ajax({
             url: "/api/admin/trajets/" + trajetId,
             type: "DELETE",
