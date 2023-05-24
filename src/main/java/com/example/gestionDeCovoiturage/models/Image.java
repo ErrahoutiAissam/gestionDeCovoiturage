@@ -17,7 +17,7 @@ public class Image {
     private Long id;
     private String nom;
 
-    @Column(length = 1000)
+//    @Column(length = 3000)
     private String url;
 
 }

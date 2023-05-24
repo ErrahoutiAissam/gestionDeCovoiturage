@@ -13,6 +13,7 @@ public class HomeController {
    public String home(Model model) {
 
       model.addAttribute("user",Principal.getCurrentUser());
+      model.addAttribute("image",Principal.getImage());
       return "index";
    }
 

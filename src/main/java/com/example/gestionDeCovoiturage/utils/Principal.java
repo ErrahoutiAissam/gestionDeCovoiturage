@@ -14,6 +14,12 @@ public final class Principal {
 
    }
 
+   public static String getImage(){
+      if(getCurrentUser().getImage() != null){
+         return getCurrentUser().getImage().getUrl();
+      } else return null;
+   }
+
 
    public static boolean isAdmin() {
       return getCurrentUser().getRole().getAuthority().equals("ADMIN");
