@@ -9,11 +9,12 @@ function deleteReservation(element) {
         url: "/api/reservation/" + reservationId,
         type: "DELETE",
         success: function () {
-            // Remove the deleted reservation from the table
+            alert("supprimé avec succès");
             $(element).closest("tr").remove();
         },
         error: function (error) {
             console.log("Error deleting reservation:", error);
+            alert("Une erreur est survenue");
         }
     });
     }

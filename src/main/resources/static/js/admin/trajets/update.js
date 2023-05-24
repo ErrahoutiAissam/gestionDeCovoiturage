@@ -24,12 +24,15 @@ form.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log('trajet modifié avec succès !');
+                alert("enregistré avec succès");
                 form.reset();
             } else {
                 console.error('modification de trajet est échoué.');
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });

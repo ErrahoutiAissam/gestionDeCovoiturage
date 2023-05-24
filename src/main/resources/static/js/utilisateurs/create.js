@@ -22,12 +22,15 @@ form.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log('utilisateur ajouté avec succès !');
+                alert("ajout avec succès");
                 form.reset();
             } else {
                 console.error('ajout d utilisateur est échoué.');
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });

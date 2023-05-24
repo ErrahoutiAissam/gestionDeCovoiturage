@@ -1,10 +1,11 @@
 function confirmState(trajetId, resId) {
-    fetch("/api/admin/trajets/"+trajetId+"/reservations"+resId, {
+    fetch(`/api/client/trajets/${trajetId}/confirm?resId=${resId}`, {
         method: "PUT",
     })
         .then(response => {
             if (response.ok) {
                 console.log("OK");
+                alert("confirmé avec success")
 
             } else {
                 console.error("Error:", response.status);

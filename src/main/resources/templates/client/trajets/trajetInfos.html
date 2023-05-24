@@ -262,7 +262,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img th:src="@{/assets/img/avatars/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                                    <img alt class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -273,10 +273,6 @@
                                                 <div class="avatar avatar-online">
                                                     <img th:src="@{/assets/img/avatars/1.png}" alt class="w-px-40 h-auto rounded-circle" />
                                                 </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">John Doe</span>
-                                                <small class="text-muted">Admin</small>
                                             </div>
                                         </div>
                                     </a>
@@ -322,33 +318,33 @@
                                                 <input class="form-control" type="text" id="villeDepart" name="villeDepart"
                                                         th:value="${trajetSelected.villeDepart}"
                                                        placeholder="Ville 1"
-                                                       autofocus
+                                                       autofocus required
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="villeArrive" class="form-label">ville d'arrivée</label>
                                                 <input class="form-control" type="text" name="villeArrive" id="villeArrive"
                                                        th:value="${trajetSelected.villeArrive}"
-                                                       placeholder="Ville 2"
+                                                       placeholder="Ville 2" required
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="nbrPlacesDisponibles" class="form-label">Nombre de Places disponibles</label>
                                                 <input class="form-control" type="number" name="nbrPlacesDisponibles" id="nbrPlacesDisponibles"
                                                        th:value="${trajetSelected.nbrPlacesDisponibles}"
-                                                       placeholder="2"
+                                                       placeholder="2" required
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="prixParPersonne" class="form-label">Prix Par Personne</label>
                                                 <input class="form-control" type="number" name="prixParPersonne" id="prixParPersonne"
-                                                       th:value="${trajetSelected.prixParPersonne}"
+                                                       th:value="${trajetSelected.prixParPersonne}" required
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="dateDepart" class="form-label">date de départ</label>
                                                 <input class="form-control" type="datetime-local" name="dateDepart" id="dateDepart"
-                                                       th:value="${trajetSelected.dateDepart}"
+                                                       th:value="${trajetSelected.dateDepart}" required
                                                 />
 
                                             </div>
@@ -380,21 +376,21 @@
                                             <td th:text="${reservation.utilisateur.nom}"></td>
                                             <td th:text="${reservation.utilisateur.prenom}"></td>
                                             <td th:text="${reservation.etat}"></td>
-<!--                                            <td>-->
-<!--                                                <div class="dropdown">-->
-<!--                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">-->
-<!--                                                        <i class="bx bx-dots-vertical-rounded"></i>-->
-<!--                                                    </button>-->
-<!--                                                    <div class="dropdown-menu">-->
-<!--                                                        <a th:if="${reservation.etat != 'CONFIRME'}" class="dropdown-item">-->
-<!--                                                            <i class="bx bx-edit-alt me-2"></i> Confirme-->
-<!--                                                        </a>-->
-<!--                                                        <a class="dropdown-item" >-->
-<!--                                                            <i class="bx bx-trash me-2"></i> Delete-->
-<!--                                                        </a>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </td>-->
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a th:if="${reservation.etat.name() != 'CONFIRME'}" class="dropdown-item" th:href="@{/client/trajets/{id}/confirm(id=${trajetSelected.id}, resId=${reservation.id})}">
+                                                            <i class="bx bx-edit-alt me-2"></i> Confirme
+                                                        </a>
+                                                        <a class="dropdown-item" >
+                                                            <i class="bx bx-trash me-2"></i> Delete
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -426,6 +422,7 @@
     </div>
 </div>
 <script th:src="@{/js/client.trajets/update.js}"></script>
+<script th:src="@{/js/client.trajets/confirme.js}"></script>
 
 
 

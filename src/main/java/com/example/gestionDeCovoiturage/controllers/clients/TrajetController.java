@@ -6,6 +6,7 @@ import com.example.gestionDeCovoiturage.service.TrajetService;
 import com.example.gestionDeCovoiturage.utils.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,8 +55,17 @@ public class TrajetController {
    @GetMapping("/Selected/{id}")
    public String trajetSelected(@PathVariable Long id, Model model) throws NotFoundException {
       model.addAttribute("trajetSelected", trajetService.getById(id));
-      model.addAttribute("users", trajetService.getRestUsers(id));
+      System.out.println(trajetService.getById(id).getReservations());
       return "client/trajets/trajetInfos";
+   }
+
+   @GetMapping("/trajets/{id}/confirm")
+   public String confirmeRes(
+           @PathVariable Long id,
+           @RequestParam("resId") Long resId
+   ) throws NotFoundException {
+      trajetService.confirmState(id, resId);
+      return "redirect:/client/Selected/"+id;
    }
 
 

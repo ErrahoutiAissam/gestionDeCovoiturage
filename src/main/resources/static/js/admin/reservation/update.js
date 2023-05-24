@@ -36,12 +36,14 @@ form.addEventListener('submit', (e) => {
         .then(response => {
             if (response.ok) {
                 console.log('Reservation updated successfully!');
+                alert("enregistré avec succès");
             } else {
                 console.error('Reservation update failed.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });
 

@@ -10,11 +10,12 @@ function deleteTrajet(element) {
             url: "/api/admin/trajets/" + trajetId,
             type: "DELETE",
             success: function () {
-                // Remove the deleted trajet from the table
+                alert("supprimé avec succès");
                 $(element).closest("tr").remove();
             },
             error: function (error) {
                 console.log("Error deleting Trajet:", error);
+                alert("Une erreur est survenue");
             }
         });
     }

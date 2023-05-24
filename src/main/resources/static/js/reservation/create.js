@@ -31,6 +31,7 @@ form.addEventListener('submit', (e) => {
         .then(response => {
             if (response.ok) {
                 console.log('Reservation added successfully!');
+                alert("ajout avec succès");
                 form.reset();
             } else {
                 console.error('Reservation adding failed.');
@@ -39,5 +40,6 @@ form.addEventListener('submit', (e) => {
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });

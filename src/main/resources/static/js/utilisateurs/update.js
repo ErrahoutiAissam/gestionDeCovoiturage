@@ -20,12 +20,15 @@ form.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log('Updated successfully !');
+                alert("enregistré avec succès");
             } else {
                 console.error('failed.');
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });
 
@@ -49,10 +52,12 @@ fileInput.addEventListener('change', (event) => {
                 uploadedAvatar.src = URL.createObjectURL(file);
             } else {
                 console.error('Error updating image:', response.statusText);
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {
             console.error('Request failed:', error);
+            alert("Une erreur est survenue");
         });
 });
 

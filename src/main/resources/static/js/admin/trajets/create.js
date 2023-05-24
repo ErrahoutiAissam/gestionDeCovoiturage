@@ -22,6 +22,7 @@ form.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log('trajet ajouté avec succès !');
+                alert("enregistré avec succès");
                 form.reset();
             } else {
                 console.error('ajout de trajet est échoué.');

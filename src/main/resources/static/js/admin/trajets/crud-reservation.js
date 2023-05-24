@@ -45,9 +45,11 @@ function confirmState(trajetId, resId) {
         .then(response => {
             if (response.ok) {
                 console.log("OK");
+                alert("enregistré avec succès");
 
             } else {
                 console.error("Error:", response.status);
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {

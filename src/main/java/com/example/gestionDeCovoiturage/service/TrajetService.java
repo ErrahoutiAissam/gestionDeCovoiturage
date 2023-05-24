@@ -54,6 +54,7 @@ public class TrajetService {
         trajetDTO.setReservations(trajet.getReservations().stream().map(
                 res -> {
                     ReservationDTO resDTO = new ReservationDTO();
+                    resDTO.setId(res.getId());
                     resDTO.setEtat(res.getEtat());
                     resDTO.setUtilisateur(userMapper.toUtilisateurResponseDTO(res.getUtilisateur()));
                     return resDTO;

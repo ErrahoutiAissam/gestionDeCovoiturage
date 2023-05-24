@@ -3,7 +3,10 @@ const form = document.getElementById('form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
+
     const formData = new FormData(form);
+
+    if(validateInputs(formData.get('villeDepart'), ))
     const registerRequest = {
         villeDepart: formData.get('villeDepart'),
         villeArrive: formData.get('villeArrive'),
@@ -23,12 +26,15 @@ form.addEventListener('submit', (event) => {
         .then(response => {
             if (response.ok) {
                 console.log('trajet ajouté avec succès !');
+                alert("enregistré avec succès");
                 form.reset();
             } else {
                 console.error('ajout de trajet est échoué.');
+                alert("Une erreur est survenue");
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });

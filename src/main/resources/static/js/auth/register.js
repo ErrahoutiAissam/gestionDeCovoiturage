@@ -23,10 +23,13 @@ form.addEventListener('submit', function(event) {
     }).then(response => {
         if(response.ok) {
             console.log("registered successfully !!")
+            alert("enregistré avec succès");
         }else {
             console.error(response);
+            alert("Une erreur est survenue");
         }
     }).catch((error) => {
         console.error("CATCH", error);
+        alert("Une erreur est survenue");
     })
 });

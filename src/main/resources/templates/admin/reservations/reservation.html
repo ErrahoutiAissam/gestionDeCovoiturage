@@ -245,7 +245,7 @@
                                         <div class="col-md-10 mt-2" style="height: 150px; width: auto; overflow-y: scroll;">
                                             <input type="hidden" name="Id" id="id"  th:value="${singleReservation.getId()}"/>
                                             <div class="form-group">
-                                                <select id="user" name="user" class="form-control">
+                                                <select id="user" name="user" class="form-control" required>
                                                     <option value="">Select a User</option>
                                                     <th:block th:each="user : ${users}">
                                                         <option th:value="${user.getId()}" th:text="${user.getNom() + ' ' + user.getPrenom() + '  -  Email : ' + user.getEmail() }"
@@ -261,7 +261,7 @@
                                     <div class="col-md-10">
                                         <div class="col-md-10 mt-2" style="height: 150px; width: auto; overflow-y: scroll;">
                                             <div class="form-group">
-                                                <select id="trajet" name="id" class="form-control">
+                                                <select id="trajet" name="id" class="form-control" required>
                                                     <option th:value="${singleReservation.trajet.getVilleDepart() + ' ----> ' + singleReservation.trajet.getVilleArrive()}">Select a trajet</option>
                                                     <th:block th:each="trajet : ${trajets}">
                                                         <option th:value="${trajet.id}" th:text="${trajet.getVilleDepart() + ' ----> ' + trajet.getVilleArrive()}"

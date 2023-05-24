@@ -53,4 +53,7 @@ public class TrajetRestController {
       trajetService.deleteTrajet(id);
       return ResponseEntity.ok("Trajet supprimé avec succès");
    }
+
+
+
 }

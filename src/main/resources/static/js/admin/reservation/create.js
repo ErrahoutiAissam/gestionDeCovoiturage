@@ -31,13 +31,16 @@ form.addEventListener('submit', (e) => {
         .then(response => {
             if (response.ok) {
                 console.log('Reservation added successfully!');
+                alert("enregistré avec succès");
                 form.reset();
             } else {
                 console.error('Reservation adding failed.');
+                alert("Une erreur est survenue");
                 console.log(response.headers)
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("Une erreur est survenue");
         });
 });
