@@ -19,11 +19,11 @@ public class AuthController {
       return "auth/login";
    }
 
-   @GetMapping("/login-error")
-   public String errorLogin(Model model){
-      model.addAttribute("error", true);
-      return "auth/login";
-   }
+//   @GetMapping("/login-error")
+//   public String errorLogin(Model model){
+//      model.addAttribute("error", true);
+//      return "auth/login";
+//   }
 
    @GetMapping("/register")
    public String showRegisterForm() {
