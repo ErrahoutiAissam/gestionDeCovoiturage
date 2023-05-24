@@ -2,6 +2,7 @@ package com.example.gestionDeCovoiturage.controllers.admin;
 
 import com.example.gestionDeCovoiturage.dto.auth.RegisterRequest;
 import com.example.gestionDeCovoiturage.exceptions.alreadyExists.EmailAlreadyUsedException;
+import com.example.gestionDeCovoiturage.exceptions.notfound.UserNotFoundException;
 import com.example.gestionDeCovoiturage.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,13 @@ public class AdminRestController {
    public ResponseEntity<?> create(@RequestBody RegisterRequest registerRequest) throws EmailAlreadyUsedException {
       System.out.println(registerRequest);
       return ResponseEntity.ok(clientService.create(registerRequest));
+   }
+
+
+   @DeleteMapping("/{id}")
+   public ResponseEntity<?> delete(@PathVariable Long id) throws UserNotFoundException {
+      clientService.delete(id);
+      return ResponseEntity.ok().build();
    }
 
 }

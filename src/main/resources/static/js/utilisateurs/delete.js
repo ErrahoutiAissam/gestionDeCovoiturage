@@ -1,23 +1,21 @@
-function deleteUser(id){
-    if(confirm('Est-vous sûr ?')){
-        fetch('/api/clients/'+id, {
-            method: 'DELETE',
-        })
-            .then(response => {
-                if (response.ok) {
-                    const keyword = document.getElementById('searchBar').value;
-                    console.log('Deleted successfully !');
-                    alert("supprimé avec succès");
-                    updateTableContent(keyword);
-                } else {
-                    console.error('failed.');
-                    alert("Une erreur est survenue");
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
+function deleteUser(element){
+
+    const id = $(element).data("user-id");
+
+    if (confirm('Est-vous sûr de supprimer cet utilisateur ?')) {
+
+        $.ajax({
+            url: '/api/admin/clients/'+id,
+            type: "DELETE",
+            success: function () {
+                alert("supprimé avec succès");
+                $(element).closest("tr").remove();
+            },
+            error: function (error) {
+                console.log("Error deleting user:", error);
                 alert("Une erreur est survenue");
-            });
+            }
+        });
     }
 
 }

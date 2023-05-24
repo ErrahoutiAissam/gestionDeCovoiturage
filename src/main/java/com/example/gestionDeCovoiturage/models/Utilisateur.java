@@ -33,7 +33,7 @@ public class Utilisateur implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
     @Column(nullable = false)
