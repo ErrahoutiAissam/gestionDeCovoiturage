@@ -6,6 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public final class Principal {
 
+
+
    public static Utilisateur getCurrentUser() {
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       return authentication.isAuthenticated()

@@ -19,4 +19,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
     List<Utilisateur> findByIdNotIn(List<Long> ids);
 
+
+
 }
