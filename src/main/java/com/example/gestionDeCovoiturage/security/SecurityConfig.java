@@ -42,7 +42,7 @@ public class SecurityConfig {
               .and()
               .formLogin()
               .loginPage("/auth/login")
-              .failureForwardUrl("/auth/login-error")
+              .failureUrl("/auth/login?error")
               .and()
               .exceptionHandling(config -> {
                  config.accessDeniedHandler(((request, response, accessDeniedException) -> {
